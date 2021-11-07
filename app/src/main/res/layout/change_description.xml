@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/gray2"
+    android:padding="@dimen/activity_vertical_margin">
+
+    <EditText
+        android:id="@+id/input_description"
+        android:gravity="top|left"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="description"
+        android:inputType="textMultiLine"
+        android:maxLines="100"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/change_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="change description"
+        app:layout_constraintEnd_toEndOf="@+id/input_description"
+        app:layout_constraintStart_toStartOf="@+id/input_description"
+        app:layout_constraintTop_toBottomOf="@+id/input_description" />
+</androidx.constraintlayout.widget.ConstraintLayout>

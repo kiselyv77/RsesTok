@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_login"
+        android:icon="@drawable/login24"
+        android:title="Вход" />
+
+    <item
+        android:id="@+id/navigation_register"
+        android:icon="@drawable/register24"
+        android:title="Регистрация" />
+
+
+</menu>

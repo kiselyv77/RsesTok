@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'
+
+
+}
+
+android {
+    compileSdk 30
+
+    defaultConfig {
+        applicationId "com.example.rsestok"
+        minSdk 24
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+
+}
+
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.1'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+
+
+
+    //my
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
+
+    implementation 'org.mp4parser:isoparser:1.9.27'
+
+    implementation "im.ene.toro3:toro:3.6.2.2804"
+    implementation "im.ene.toro3:toro-ext-exoplayer:3.6.2.2804"  // to get ExoPlayer support
+
+    implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
+
+
+    implementation 'com.arthenica:mobile-ffmpeg-full:4.4'
+    implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+
+
+
+
+
+
+
+
+
+}

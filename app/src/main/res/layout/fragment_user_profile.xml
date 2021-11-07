@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textAlignment="center"
+    tools:context=".ui.profile.your_profile.ProfileFragment">
+
+    <TextView
+        android:id="@+id/ifVideoEmphy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Уэтого пользователя еще нет видео"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:minWidth="80dp"
+                    android:minHeight="50dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_subscribers"
+                    app:layout_constraintStart_toEndOf="@+id/btn_subscribers"
+                    app:layout_constraintTop_toTopOf="@+id/btn_subscribers">
+
+                    <TextView
+                        android:id="@+id/likes_text"
+                        style="@style/text_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="38k" />
+
+                    <TextView
+                        android:id="@+id/likes_label"
+                        style="@style/text_secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Лайки"
+                        app:layout_constraintEnd_toEndOf="@+id/likes_text"
+                        app:layout_constraintStart_toStartOf="@+id/likes_text"
+                        app:layout_constraintTop_toBottomOf="@+id/likes_text" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/text_profile_name"
+                    style="@style/text_primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="kiselyv77"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_image"
+                    app:layout_constraintStart_toStartOf="@+id/profile_image"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_subscriptions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:minWidth="80dp"
+                    android:minHeight="50dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_subscribers"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_subscribers"
+                    app:layout_constraintTop_toTopOf="@+id/btn_subscribers">
+
+                    <TextView
+                        android:id="@+id/subscriptions_text"
+                        style="@style/text_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="16" />
+
+                    <TextView
+                        android:id="@+id/subscriptions_label"
+                        style="@style/text_secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Подписки"
+                        app:layout_constraintEnd_toEndOf="@+id/subscriptions_text"
+                        app:layout_constraintStart_toStartOf="@+id/subscriptions_text"
+                        app:layout_constraintTop_toBottomOf="@+id/subscriptions_text" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/description"
+                    style="@style/text_secondary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:textDirection="ltr"
+                    app:autoSizeTextType="none"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_likes"
+                    app:layout_constraintStart_toStartOf="@+id/btn_subscriptions"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_message"
+                    tools:text="Я пишу свай тик ток я пишу свой тик ток я пишу свой тrgffbsjndvlbgnbldgldjmblkmjflgmgsjpbojgnpfjmpodkgbopик ток" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_subscribers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:minHeight="50dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_profile_name"
+                    app:layout_constraintStart_toStartOf="@+id/text_profile_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_profile_name">
+
+                    <TextView
+                        android:id="@+id/subscribers_text"
+                        style="@style/text_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="1864" />
+
+                    <TextView
+                        android:id="@+id/subscribers_label"
+                        style="@style/text_secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Подписчики"
+                        app:layout_constraintEnd_toEndOf="@+id/subscribers_text"
+                        app:layout_constraintStart_toStartOf="@+id/subscribers_text"
+                        app:layout_constraintTop_toBottomOf="@+id/subscribers_text" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/btn_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:src="@drawable/messeger_profile"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_subscribers"
+                    app:layout_constraintStart_toStartOf="@+id/btn_subscribers"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_subscribers"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Button
+                    android:id="@+id/btn_subscribe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="Добавить"
+                    android:textSize="10sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/btn_subscriptions"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_subscriptions" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:src="@drawable/profile"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    app:civ_circle_background_color="@color/gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/separator1"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="1dp"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_subscribers"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_subscribers"
+                    app:layout_constraintTop_toTopOf="@+id/btn_subscribers" />
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_subscribers"
+                    app:layout_constraintStart_toEndOf="@+id/btn_subscribers"
+                    app:layout_constraintTop_toTopOf="@+id/btn_subscribers" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

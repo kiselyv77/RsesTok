@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "630474562413",
+    "project_id": "rsestok-1899c",
+    "storage_bucket": "rsestok-1899c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630474562413:android:3827c91fd656b4a12f1864",
+        "android_client_info": {
+          "package_name": "com.example.rsestok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630474562413-24rn9i7asqqd7qbjik6uaormce8l45hp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY-yYnZGVfXE9FofBTP4i_C_i4qYifnlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630474562413-24rn9i7asqqd7qbjik6uaormce8l45hp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">RsesTok</string>
+
+
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_add">Add</string>
+    <string name="title_messenger">Messenger</string>
+    <string name="title_profile">Profile</string>
+    <string name="default_full_name">Данил Киселев</string>
+    <string name="default_status">online</string>
+    <string name="title_register">Register</string>
+    <string name="title_login">Login</string>
+    <string name="hint_login">email</string>
+    <string name="hint_password">password</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_surname">Surname</string>
+    <string name="username">username</string>
+
+
+
+</resources>

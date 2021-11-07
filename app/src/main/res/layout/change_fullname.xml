@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/gray2"
+    android:padding="@dimen/activity_vertical_margin">
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/register24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/hint_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/input_surname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/register24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/hint_surname"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/input_name"
+        app:layout_constraintStart_toStartOf="@+id/input_name"
+        app:layout_constraintTop_toBottomOf="@+id/input_name" />
+
+    <Button
+        android:id="@+id/change_fullname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="change fullname"
+        app:layout_constraintEnd_toEndOf="@+id/input_surname"
+        app:layout_constraintStart_toStartOf="@+id/input_surname"
+        app:layout_constraintTop_toBottomOf="@+id/input_surname" />
+</androidx.constraintlayout.widget.ConstraintLayout>

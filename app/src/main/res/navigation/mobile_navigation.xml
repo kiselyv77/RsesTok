@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.rsestok.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.rsestok.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/list_users" >
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_user_profile"
+            app:destination="@id/navigation_user_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.example.rsestok.ui.add.AddFragment"
+        android:label="@string/title_add"
+        tools:layout="@layout/fragment_add" />
+
+    <fragment
+        android:id="@+id/navigation_messenger"
+        android:name="com.example.rsestok.ui.messenger.MessengerFragment"
+        android:label="@string/title_messenger"
+        tools:layout="@layout/fragment_messenger" >
+        <action
+            android:id="@+id/action_navigation_messenger_to_navigation_single_chat"
+            app:destination="@id/navigation_single_chat" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.rsestok.ui.profile.your_profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_video_pager"
+            app:destination="@id/navigation_video_pager" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_register"
+        android:name="com.example.rsestok.ui.register.RegisterFragment"
+        android:label="@string/title_register"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.example.rsestok.ui.login.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/navigation_user_profile"
+        android:name="com.example.rsestok.ui.profile.user_profile.UserProfileFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_navigation_user_profile_to_navigation_single_chat"
+            app:destination="@id/navigation_single_chat" />
+        <action
+            android:id="@+id/action_navigation_user_profile_to_navigation_video_pager"
+            app:destination="@id/navigation_video_pager" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_list_subscribers"
+        android:name="com.example.rsestok.ui.listUsers.FragmentListUsers"
+        android:label="@string/title_login"
+        tools:layout="@layout/list_users" >
+        <action
+            android:id="@+id/action_navigation_list_subscribers_to_navigation_user_profile"
+            app:destination="@id/navigation_user_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_single_chat"
+        android:name="com.example.rsestok.ui.single_chat.SingleChatFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_single_chat" />
+
+    <fragment
+        android:id="@+id/navigation_video_pager"
+        android:name="com.example.rsestok.ui.video_pager_fragment.VideoPagerFragment"
+        android:label="title_video_pager"
+        tools:layout="@layout/fragment_video_pager" />
+</navigation>
