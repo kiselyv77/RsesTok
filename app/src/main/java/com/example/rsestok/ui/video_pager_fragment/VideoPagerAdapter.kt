@@ -1,5 +1,6 @@
 package com.example.rsestok.ui.video_pager_fragment
 
+import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.models.VideoModel
 import com.example.rsestok.utilits.APP_ACTIVITY
@@ -95,8 +96,15 @@ class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter
         }
         
         likeListener = AppValueEventListener {
+
             if(it.getVideoModel().likes.containsValue(CURRENT_UID)){
                 holder.flagBtnLike = true
+                holder.btnLike.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_on))
+                holder.textCountLikes.setTextColor(APP_ACTIVITY.getColor(R.color.color_like))
+            }
+            else{
+                holder.btnLike.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like))
+                holder.textCountLikes.setTextColor(APP_ACTIVITY.getColor(R.color.white))
             }
              holder.btnLike.setOnClickListener {
                 if(holder.flagBtnLike == false){
