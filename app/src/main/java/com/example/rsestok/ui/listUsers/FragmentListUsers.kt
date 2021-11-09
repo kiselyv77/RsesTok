@@ -21,6 +21,7 @@ import com.example.rsestok.utilits.APP_NAV_CONTROLLER
 import com.example.rsestok.utilits.AppSearch
 import com.example.rsestok.utilits.app_listeners.AppChildEventListener
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
+import com.example.rsestok.utilits.showToast
 
 class FragmentListUsers : Fragment() {
 
@@ -79,11 +80,8 @@ class FragmentListUsers : Fragment() {
             listSubscribers = it.children.map{ it.getUserModel() }.filter {it.fullname.toLowerCase().contains(searchView.query)} as ArrayList<UserModel>
             val list = arguments?.getStringArrayList("list")
 
-            listSubscribers.forEach {
-                if (list!!.contains(it.id)){
-                    adapter.updateListItems(listSubscribers)
-                }
-            }
+
+            adapter.updateListItems(listSubscribers.filter { list!!.contains(it.id) })
 
 
         }
