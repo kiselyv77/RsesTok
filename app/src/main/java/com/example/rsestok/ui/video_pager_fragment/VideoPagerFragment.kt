@@ -10,25 +10,10 @@ import com.example.rsestok.*
 import com.example.rsestok.databinding.FragmentVideoPagerBinding
 import com.example.rsestok.models.VideoModel
 import com.example.rsestok.utilits.APP_ACTIVITY
-import com.example.rsestok.utilits.RecyclerViewScrollListener
-import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.media.PlayerViewAdapter
-import com.example.rsestok.utilits.showToast
 import com.google.firebase.database.DatabaseReference
-import android.view.ViewTreeObserver.OnScrollChangedListener
 import androidx.annotation.RequiresApi
-import androidx.core.view.doOnAttach
-import androidx.core.view.doOnLayout
-import androidx.core.view.doOnPreDraw
-import androidx.lifecycle.lifecycleScope
-import com.example.rsestok.ui.single_chat.message_recycling_view.views.AppViewFactory
-import com.example.rsestok.utilits.DialogChangeDescription
 import com.example.rsestok.utilits.app_listeners.AppChildEventListener
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
-
-
-
 
 
 class VideoPagerFragment : Fragment() {
@@ -41,8 +26,10 @@ class VideoPagerFragment : Fragment() {
     private var listVideosUri = arrayListOf<String>()
 
     private lateinit var  refVideos : DatabaseReference
+    private lateinit var refSubscriptions: DatabaseReference
 
     var uid:String? = ""
+    var listSubscribers = arrayListOf<String>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -52,6 +39,7 @@ class VideoPagerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         uid = arguments?.getString("uid")
         refVideos = REF_DATABASE_ROOT.child(NODE_VIDEOS).child(uid!!)
+
 
 
 
@@ -89,7 +77,7 @@ class VideoPagerFragment : Fragment() {
     private fun initRecyclerView() {
         val viewPage = binding.viewPage
 
-        videoAdapter = VideoPagerAdapter(uid!!)
+        videoAdapter = VideoPagerAdapter(uid!!, listSubscribers)
 
 
         val childListener = AppChildEventListener{
@@ -110,9 +98,10 @@ class VideoPagerFragment : Fragment() {
     }
 
 
+
     @RequiresApi(Build.VERSION_CODES.P)
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         PlayerViewAdapter.releaseAllPlayers()
         APP_ACTIVITY.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         val attrib = APP_ACTIVITY.window.attributes

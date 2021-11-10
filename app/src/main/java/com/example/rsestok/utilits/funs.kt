@@ -19,7 +19,7 @@ fun restartActivity(){
 }
 
 
-fun ImageView.downloadAndSetImage(uri: String, defaultPhoto:Int = R.drawable.profile){
+fun ImageView.downloadAndSetImage(uri: String, defaultPhoto:Int = R.color.gray2){
     Picasso.get()
         .load(uri)
         .placeholder(defaultPhoto)

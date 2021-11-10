@@ -176,6 +176,8 @@ class ProfileFragment : Fragment() {
         val layoutManager =  GridLayoutManager(APP_ACTIVITY, 3)
 
 
+
+
         rcView.layoutManager = layoutManager
         videoAdapter = ProfileVideoAdapter(AUTH.currentUser!!.uid)
         listenerVideos = AppValueEventListener{

@@ -1,38 +1,18 @@
 package com.example.rsestok.ui.profile
 
-import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.R
-import com.example.rsestok.REF_DATABASE_ROOT
-import com.example.rsestok.REF_STORAGE_ROOT
-import com.example.rsestok.THUMBNAIL_FILES
 import com.example.rsestok.databinding.InstagramTimelineItemRecyclerBinding
-import com.example.rsestok.databinding.ItemUserBinding
-import com.example.rsestok.databinding.ItemVideoProfileBinding
-import com.example.rsestok.models.UserModel
 import com.example.rsestok.models.VideoModel
 import com.example.rsestok.ui.profile.ProfileVideoAdapter.ProfileVideoHolder
-import com.example.rsestok.utilits.APP_ACTIVITY
 import com.example.rsestok.utilits.APP_NAV_CONTROLLER
-import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.downloadAndSetImage
-import com.example.rsestok.utilits.media.AppVideoPlayer
 import com.example.rsestok.utilits.media.PlayerStateCallback
-import com.example.rsestok.utilits.media.PlayerViewAdapter
-import com.example.rsestok.utilits.media.PlayerViewAdapter.Companion.loadVideo
 import com.example.rsestok.utilits.showToast
-import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ProfileVideoAdapter(val uid:String): RecyclerView.Adapter<ProfileVideoHolder>(),
     PlayerStateCallback {

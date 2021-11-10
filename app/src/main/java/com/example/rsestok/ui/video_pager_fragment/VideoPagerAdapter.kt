@@ -1,6 +1,6 @@
 package com.example.rsestok.ui.video_pager_fragment
 
-import android.graphics.drawable.Drawable
+import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.models.VideoModel
 import com.example.rsestok.utilits.APP_ACTIVITY
@@ -12,8 +12,11 @@ import com.google.android.exoplayer2.Player
 
 import android.view.*
 import androidx.collection.arrayMapOf
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rsestok.*
 import com.example.rsestok.databinding.*
+import com.example.rsestok.ui.search.SearchAdapter
+import com.example.rsestok.ui.search.SearchAdapterSendVideo
 import com.example.rsestok.utilits.APP_NAV_CONTROLLER
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.showToast
@@ -21,7 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DatabaseReference
 
 
-class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
+class VideoPagerAdapter(val uid: String, var listSubscribers: ArrayList<String>) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
     PlayerStateCallback {
 
 
@@ -31,9 +34,6 @@ class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter
     val mapListeners = arrayMapOf<DatabaseReference, AppValueEventListener>()
 
     private lateinit var likeListener: AppValueEventListener
-
-
-
 
 
 
@@ -57,9 +57,8 @@ class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter
         var title = item.title
         var description = item.desc
 
-
-
-    }
+        var btnSend = item.btnSend
+        var imageProfile = item.profileImage }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder  {
         val chatItem = TiktokTimelineItemRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -94,6 +93,10 @@ class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter
         if(listVideos[position].likes.containsValue(CURRENT_UID)){
             holder.flagBtnLike = true
         }
+
+        holder.btnSend.setOnClickListener{
+            showDialogSendVideo(position)
+        }
         
         likeListener = AppValueEventListener {
 
@@ -124,6 +127,29 @@ class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter
         refVideos.addValueEventListener(likeListener)
         mapListeners[refVideos] = likeListener
 
+        holder.imageProfile.setOnClickListener {
+            val bundle: Bundle = Bundle()
+            bundle.putString("uid", uid)
+            if(uid == CURRENT_UID){
+                APP_NAV_CONTROLLER.navigate(R.id.navigation_profile, bundle)
+            }
+            else{
+                APP_NAV_CONTROLLER.navigate(R.id.navigation_user_profile, bundle)
+        }
+        }
+
+        val refPhoto = REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+        val photoListener = AppValueEventListener {
+            holder.imageProfile.downloadAndSetImage(it.getUserModel().profilePhotoUri)
+
+        }
+        refPhoto.addValueEventListener(photoListener)
+        mapListeners[refPhoto] = photoListener
+
+
+
+
+
     }
 
     private fun showComents(position: Int) {
@@ -132,6 +158,8 @@ class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter
         bottomSheetDialogComents.setContentView(dialogBindingComents.root)
         bottomSheetDialogComents.window?.attributes?.windowAnimations = R.style.DialogAnimation
         bottomSheetDialogComents.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+
         bottomSheetDialogComents.show()
     }
 
@@ -166,6 +194,32 @@ class VideoPagerAdapter(val uid:String) : RecyclerView.Adapter<VideoPagerAdapter
             showToast("Жалоба ебатт")
             bottomSheetDialogMenu.dismiss()
         }
+    }
+
+    private fun showDialogSendVideo(position: Int){
+        val adapter = SearchAdapterSendVideo()
+        val bottomSheetSend = BottomSheetDialog(APP_ACTIVITY)
+        val dialogBindingSend = BottomSheetSendBinding.inflate(LayoutInflater.from( bottomSheetSend.context), null ,false)
+        dialogBindingSend.listUsers.adapter = adapter
+        dialogBindingSend.listUsers.layoutManager = LinearLayoutManager(APP_ACTIVITY)
+        bottomSheetSend.setContentView(dialogBindingSend.root)
+        bottomSheetSend.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        bottomSheetSend.show()
+
+        val refSubscribers = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_SUBSCRIBERS)
+        val subscribersListener = AppValueEventListener {
+            listSubscribers = it.children.map{ it.getStringList() } as ArrayList<String>
+        }
+        refSubscribers.addListenerForSingleValueEvent(subscribersListener)
+        mapListeners[refSubscribers] = subscribersListener
+
+        val refUsers = REF_DATABASE_ROOT.child(NODE_USERS)
+        val userListener = AppValueEventListener{
+            val listUsers = it.children.map{ it.getUserModel() }.filter{ listSubscribers.contains(it.id)}
+            adapter.updateListItems(listUsers)
+        }
+        refUsers.addListenerForSingleValueEvent(userListener)
+        mapListeners[refUsers] = userListener
 
     }
 

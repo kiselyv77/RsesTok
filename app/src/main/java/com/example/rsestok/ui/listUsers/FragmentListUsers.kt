@@ -82,8 +82,6 @@ class FragmentListUsers : Fragment() {
 
 
             adapter.updateListItems(listSubscribers.filter { list!!.contains(it.id) })
-
-
         }
 
         refUsers.addValueEventListener(listenerUsers)
