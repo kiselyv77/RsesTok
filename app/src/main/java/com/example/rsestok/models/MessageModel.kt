@@ -6,5 +6,6 @@ data class MessageModel(
     var type:String= "",
     var from: String = "",
     var timeStamp: Any = "",
-    var fileUrl:String = "emphy"
+    var fileUrl:String = "emphy",
+    var userVideoId:String = "emphy",
 )

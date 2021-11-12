@@ -1,6 +1,7 @@
 package com.example.rsestok.ui.profile
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -48,9 +49,12 @@ class ProfileVideoAdapter(val uid:String): RecyclerView.Adapter<ProfileVideoHold
 //                PlayerViewAdapter.playPause(holder.animPlay,holder.animPause,position)
 //            }
             val bundle = Bundle()
+            val listVideo = arrayListOf<Parcelable>()
+            listVideo.addAll(listVideos)
 
             bundle.putString("uid", uid)
             bundle.putInt("position", position)
+            bundle.putParcelableArrayList("list", listVideo)
             APP_NAV_CONTROLLER.navigate(R.id.navigation_video_pager, bundle)
         }
     }

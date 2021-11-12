@@ -42,6 +42,7 @@ const val CHILD_DESCRIPTION = "description"
 const val CHILD_USER_ID = "userId"
 const val CHILD_TITLE = "title"
 const val CHILD_VIDEO_URL = "videoURI"
+const val CHILD_USER_VIDEO_ID = "userVideoId"
 
 
 //MESSAGE CHILD
@@ -293,7 +294,8 @@ fun sendMessageAsFile(
     fileUrl: String,
     messageKey: String,
     type: String,
-    filename: String
+    filename: String,
+    userVideoId: String = ""
 ) {
     val refDialogUser = "$NODE_MESSAGES/$CURRENT_UID/$receivingUserID"
     val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserID/$CURRENT_UID"
@@ -305,6 +307,7 @@ fun sendMessageAsFile(
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
     mapMessage[CHILD_FILE_URL] = fileUrl
     mapMessage[CHILD_TEXT] = filename
+    mapMessage[CHILD_USER_VIDEO_ID] = userVideoId
 
     val mapDialog = hashMapOf<String, Any>()
     mapDialog["$refDialogUser/$messageKey"] = mapMessage
@@ -435,11 +438,6 @@ fun likeVideo(videoModel: VideoModel, uid: String){
     val globalLikesMap = hashMapOf<String, Any>()
     globalLikesMap["$refLikes/${videoModel.id}"] = CURRENT_UID
     REF_DATABASE_ROOT.updateChildren(globalLikesMap)
-
-
-
-
-
 }
 
 fun removeLikeVideo(videoModel: VideoModel, uid: String){
@@ -450,8 +448,11 @@ fun removeLikeVideo(videoModel: VideoModel, uid: String){
 
     REF_DATABASE_ROOT.child("$refLikes/${videoModel.id}").removeValue()
 
+}
 
-
+fun sendVideo(thumbnailUrl: String, userId: String, videoId: String, receivingUserID: String) {
+    saveMainList(receivingUserID, TYPE_CHAT)
+    sendMessageAsFile(receivingUserID, thumbnailUrl, getMessageKey(receivingUserID), TYPE_MESSAGE_VIDEO, "", userId)
 }
 
 

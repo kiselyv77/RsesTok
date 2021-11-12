@@ -4,16 +4,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigator
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.AUTH
 import com.example.rsestok.R
-import com.example.rsestok.databinding.FragmentUserProfileBinding
 import com.example.rsestok.databinding.ItemUserBinding
 import com.example.rsestok.models.UserModel
-import com.example.rsestok.models.VideoModel
+import com.example.rsestok.sendVideo
 import com.example.rsestok.utilits.APP_ACTIVITY
 import com.example.rsestok.utilits.UserStatus
 import com.example.rsestok.utilits.downloadAndSetImage
@@ -48,15 +45,17 @@ class SearchAdapter: AbstractAdapter() {
 }
 
 
-class SearchAdapterSendVideo:AbstractAdapter(){
+class SearchAdapterSendVideo(val thumbnailUrl: String, val userId: String, val id: String):AbstractAdapter(){
     override fun onBindViewHolder(holder: SearchUserHolder, position: Int) {
         holder.itemView.setOnClickListener{
             val navController = APP_ACTIVITY.findNavController(R.id.nav_host_fragment_activity_main)
             val bundle:Bundle = Bundle()
             bundle.putString("uid", listUsers[position].id)
-            //navController.navigate(R.id.navigation_profile, bundle)
+            sendVideo(thumbnailUrl, userId, id, listUsers[position].id)
+            navController.navigate(R.id.navigation_single_chat, bundle)
 
-            showToast("Отправка видео в лс") }
+
+        }
 
         holder.fullName.text = listUsers[position].fullname
         holder.userPhoto.downloadAndSetImage(listUsers[position].profilePhotoUri)

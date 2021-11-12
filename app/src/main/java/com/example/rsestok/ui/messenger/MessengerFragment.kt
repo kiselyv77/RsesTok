@@ -94,6 +94,7 @@ class MessengerFragment : Fragment() {
                     val tempList = it.children.map { it.getMessageModel() }
                     if(tempList.isEmpty()){ newModel.lastMessage = "Чат отчищен" }
                     else if (tempList[0].type == TYPE_MESSAGE_VOICE){  newModel.lastMessage = "Голосовое сообщение"}
+                    else if (tempList[0].type == TYPE_MESSAGE_VIDEO){  newModel.lastMessage = "Видео"}
                     else{ newModel.lastMessage = tempList[0].text }
 
                     adapter.addItemToBottom(newModel)

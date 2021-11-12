@@ -7,6 +7,7 @@ interface MessageView {
     val timeStamp:String
     val fileUrl:String
     val text:String
+    val userVideoId:String
 
     companion object{
         val MESSAGE_IMAGE:Int

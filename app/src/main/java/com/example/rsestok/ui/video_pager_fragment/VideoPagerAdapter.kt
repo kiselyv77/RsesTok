@@ -12,10 +12,10 @@ import com.google.android.exoplayer2.Player
 
 import android.view.*
 import androidx.collection.arrayMapOf
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rsestok.*
 import com.example.rsestok.databinding.*
-import com.example.rsestok.ui.search.SearchAdapter
 import com.example.rsestok.ui.search.SearchAdapterSendVideo
 import com.example.rsestok.utilits.APP_NAV_CONTROLLER
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
@@ -197,7 +197,7 @@ class VideoPagerAdapter(val uid: String, var listSubscribers: ArrayList<String>)
     }
 
     private fun showDialogSendVideo(position: Int){
-        val adapter = SearchAdapterSendVideo()
+        val adapter = SearchAdapterSendVideo(listVideos[position].thumbnailUrl, listVideos[position].userId, listVideos[position].id)
         val bottomSheetSend = BottomSheetDialog(APP_ACTIVITY)
         val dialogBindingSend = BottomSheetSendBinding.inflate(LayoutInflater.from( bottomSheetSend.context), null ,false)
         dialogBindingSend.listUsers.adapter = adapter
@@ -205,6 +205,9 @@ class VideoPagerAdapter(val uid: String, var listSubscribers: ArrayList<String>)
         bottomSheetSend.setContentView(dialogBindingSend.root)
         bottomSheetSend.window?.attributes?.windowAnimations = R.style.DialogAnimation
         bottomSheetSend.show()
+        APP_NAV_CONTROLLER.addOnDestinationChangedListener(NavController.OnDestinationChangedListener { controller, destination, arguments ->
+             if (destination.id != R.id.navigation_video_pager) {
+                 bottomSheetSend.dismiss() }})
 
         val refSubscribers = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_SUBSCRIBERS)
         val subscribersListener = AppValueEventListener {
@@ -220,6 +223,8 @@ class VideoPagerAdapter(val uid: String, var listSubscribers: ArrayList<String>)
         }
         refUsers.addListenerForSingleValueEvent(userListener)
         mapListeners[refUsers] = userListener
+
+
 
     }
 

@@ -31,6 +31,7 @@ class VideoPagerFragment : Fragment() {
     var uid:String? = ""
     var listSubscribers = arrayListOf<String>()
 
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -38,6 +39,8 @@ class VideoPagerFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         uid = arguments?.getString("uid")
+        listVideos = arguments?.getParcelableArrayList<VideoModel>("list")!!
+
         refVideos = REF_DATABASE_ROOT.child(NODE_VIDEOS).child(uid!!)
 
 
@@ -77,12 +80,13 @@ class VideoPagerFragment : Fragment() {
     private fun initRecyclerView() {
         val viewPage = binding.viewPage
 
-        videoAdapter = VideoPagerAdapter(uid!!, listSubscribers)
+        videoAdapter = VideoPagerAdapter(uid!!, listSubscribers,)
 
 
         val childListener = AppChildEventListener{
             val video = it.getVideoModel()
             videoAdapter.addItemToBottom(video)
+
         }
 
 
