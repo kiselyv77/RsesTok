@@ -30,7 +30,7 @@ class HolderVoiceMessage(itemMessage: MessageItemVoiceBinding) : RecyclerView.Vi
 
 
 
-    override fun drawMessage(view: MessageView) {
+    override fun drawMessage(view: MessageView, messageList: MutableList<MessageView>) {
         if (view.from == CURRENT_UID) {
             blockUserVoice.visibility = View.VISIBLE
             blockReceivedVoice.visibility = View.GONE

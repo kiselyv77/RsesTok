@@ -24,7 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DatabaseReference
 
 
-class VideoPagerAdapter(val uid: String, var listSubscribers: ArrayList<String>) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
+class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
     PlayerStateCallback {
 
 
@@ -123,14 +123,14 @@ class VideoPagerAdapter(val uid: String, var listSubscribers: ArrayList<String>)
             holder.textCountLikes.text = it.getVideoModel().likes.size.toString()
 
         }
-        val refVideos = REF_DATABASE_ROOT.child(NODE_VIDEOS).child(uid).child(listVideos[position].id)
+        val refVideos = REF_DATABASE_ROOT.child(NODE_VIDEOS).child(listVideos[position].userId).child(listVideos[position].id)
         refVideos.addValueEventListener(likeListener)
         mapListeners[refVideos] = likeListener
 
         holder.imageProfile.setOnClickListener {
             val bundle: Bundle = Bundle()
-            bundle.putString("uid", uid)
-            if(uid == CURRENT_UID){
+            bundle.putString("uid", listVideos[position].userId)
+            if(listVideos[position].userId == CURRENT_UID){
                 APP_NAV_CONTROLLER.navigate(R.id.navigation_profile, bundle)
             }
             else{
@@ -138,7 +138,7 @@ class VideoPagerAdapter(val uid: String, var listSubscribers: ArrayList<String>)
         }
         }
 
-        val refPhoto = REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+        val refPhoto = REF_DATABASE_ROOT.child(NODE_USERS).child(listVideos[position].userId)
         val photoListener = AppValueEventListener {
             holder.imageProfile.downloadAndSetImage(it.getUserModel().profilePhotoUri)
 

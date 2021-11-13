@@ -4,7 +4,7 @@ import com.example.rsestok.ui.single_chat.message_recycling_view.views.MessageVi
 
 
 interface MessageHolder {
-    fun drawMessage(view: MessageView)
+    fun drawMessage(view: MessageView, messageList: MutableList<MessageView> = arrayListOf())
     fun onAttach(view:MessageView)
     fun onDetach()
 }

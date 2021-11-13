@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.rsestok.R
 import com.example.rsestok.databinding.FragmentHomeBinding
+import com.example.rsestok.ui.video_pager_fragment.VideoPagerFragment
 
 class HomeFragment : Fragment() {
 
@@ -25,11 +26,11 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
 
-        })
         return binding.root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

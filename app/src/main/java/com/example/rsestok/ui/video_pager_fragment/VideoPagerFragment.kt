@@ -2,6 +2,7 @@ package com.example.rsestok.ui.video_pager_fragment
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,7 +14,9 @@ import com.example.rsestok.utilits.APP_ACTIVITY
 import com.example.rsestok.utilits.media.PlayerViewAdapter
 import com.google.firebase.database.DatabaseReference
 import androidx.annotation.RequiresApi
+import com.example.rsestok.utilits.APP_NAV_CONTROLLER
 import com.example.rsestok.utilits.app_listeners.AppChildEventListener
+import com.example.rsestok.utilits.showToast
 
 
 class VideoPagerFragment : Fragment() {
@@ -22,14 +25,15 @@ class VideoPagerFragment : Fragment() {
     private var _binding: FragmentVideoPagerBinding? = null
 
     private lateinit var  videoAdapter : VideoPagerAdapter
-    private lateinit var listVideos : List<VideoModel>
-    private var listVideosUri = arrayListOf<String>()
+    private lateinit var listUsersUid : List<String>
+    private var listReference = arrayListOf<DatabaseReference>()
 
     private lateinit var  refVideos : DatabaseReference
     private lateinit var refSubscriptions: DatabaseReference
 
-    var uid:String? = ""
+    //var uid:String? = ""
     var listSubscribers = arrayListOf<String>()
+    lateinit var childListener : AppChildEventListener
 
 
     // This property is only valid between onCreateView and
@@ -37,39 +41,28 @@ class VideoPagerFragment : Fragment() {
     private val binding get() = _binding!!
 
     @RequiresApi(Build.VERSION_CODES.P)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        uid = arguments?.getString("uid")
-        listVideos = arguments?.getParcelableArrayList<VideoModel>("list")!!
-
-        refVideos = REF_DATABASE_ROOT.child(NODE_VIDEOS).child(uid!!)
-
-
-
-
+        listUsersUid = arguments?.getStringArrayList("listUsersUid")!!
+        listUsersUid.forEach{
+            listReference.add(REF_DATABASE_ROOT.child(NODE_VIDEOS).child(it))
+        }
         video_pager_viewModel = ViewModelProvider(this).get(VideoPagerViewModel::class.java)
 
         _binding = FragmentVideoPagerBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        video_pager_viewModel.text.observe(viewLifecycleOwner, Observer {
-
-        })
-
         APP_ACTIVITY.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         val attrib = APP_ACTIVITY.window.attributes
         attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
 
-
         return root
     }
-
 
     override fun onResume() {
         super.onResume()
         APP_ACTIVITY.goneNavView()
-
         initRecyclerView()
-
     }
 
     override fun onDestroyView() {
@@ -79,23 +72,18 @@ class VideoPagerFragment : Fragment() {
 
     private fun initRecyclerView() {
         val viewPage = binding.viewPage
-
-        videoAdapter = VideoPagerAdapter(uid!!, listSubscribers,)
-
-
-        val childListener = AppChildEventListener{
+        videoAdapter = VideoPagerAdapter(listSubscribers)
+        childListener = AppChildEventListener{
             val video = it.getVideoModel()
-            videoAdapter.addItemToBottom(video)
-
+            videoAdapter.addItemToBottom(video) }
+        listReference.forEach{
+            it.addChildEventListener(childListener)
         }
 
-
-
-        refVideos.addChildEventListener(childListener)
         viewPage.adapter = videoAdapter
-
         viewPage.postDelayed(
         {
+
             viewPage.setCurrentItem(arguments?.getInt("position")!!, false)//Этот костыль нужно убрать будет!!!
             viewPage.visibility = View.VISIBLE
         }, 30)
@@ -111,6 +99,9 @@ class VideoPagerFragment : Fragment() {
         val attrib = APP_ACTIVITY.window.attributes
         attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         videoAdapter.remuveEventListeners()
+        listReference.forEach{
+            it.removeEventListener(childListener)
+        }
 
     }
 

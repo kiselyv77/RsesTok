@@ -6,7 +6,7 @@ data class ViewVoiceMessage(
     override val timeStamp: String,
     override val fileUrl: String,
     override val text: String = "",
-    override val userVideoId: String
+    override val userVideoId: String, override val type: String
 ) :MessageView {
 
     override fun getTypeView(): Int {

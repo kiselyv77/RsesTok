@@ -52,9 +52,8 @@ class ProfileVideoAdapter(val uid:String): RecyclerView.Adapter<ProfileVideoHold
             val listVideo = arrayListOf<Parcelable>()
             listVideo.addAll(listVideos)
 
-            bundle.putString("uid", uid)
             bundle.putInt("position", position)
-            bundle.putParcelableArrayList("list", listVideo)
+            bundle.putStringArrayList("listUsersUid", arrayListOf(uid))
             APP_NAV_CONTROLLER.navigate(R.id.navigation_video_pager, bundle)
         }
     }

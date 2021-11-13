@@ -5,13 +5,9 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.CURRENT_UID
 import com.example.rsestok.R
-import com.example.rsestok.databinding.InstagramTimelineItemRecyclerBinding
 import com.example.rsestok.databinding.MessageItemVideoBinding
 import com.example.rsestok.ui.single_chat.message_recycling_view.views.MessageView
-import com.example.rsestok.utilits.APP_NAV_CONTROLLER
-import com.example.rsestok.utilits.asTime
-import com.example.rsestok.utilits.downloadAndSetImage
-import com.example.rsestok.utilits.showToast
+import com.example.rsestok.utilits.*
 
 class HolderVideoMessage(itemMessage: MessageItemVideoBinding): RecyclerView.ViewHolder(itemMessage.root), MessageHolder {
     private val blockUserVideo = itemMessage.blockUserImage
@@ -24,7 +20,11 @@ class HolderVideoMessage(itemMessage: MessageItemVideoBinding): RecyclerView.Vie
     private val imageReceived = itemMessage.receivedImage
 
 
-    override fun drawMessage(view: MessageView) {
+    override fun drawMessage(view: MessageView, messageList: MutableList<MessageView>) {
+
+        val listVideoMessage = messageList.filter {it.type == TYPE_MESSAGE_VIDEO}
+        val listUsersUid = arrayListOf<String>()
+        listVideoMessage.forEach {listUsersUid.add(it.userVideoId)}
         if (view.from == CURRENT_UID) {
             blockUserVideo.visibility = View.VISIBLE
             blockReceivedVideo.visibility = View.GONE
@@ -32,8 +32,8 @@ class HolderVideoMessage(itemMessage: MessageItemVideoBinding): RecyclerView.Vie
             imageUser.downloadAndSetImage(view.fileUrl)
             blockUserVideo.setOnClickListener{
                 val bundle:Bundle = Bundle()
-                bundle.putString("uid",view.userVideoId)
-                bundle.putInt("position", 0)
+                bundle.putInt("position", 2)
+                bundle.putStringArrayList("listUsersUid", listUsersUid)
                 APP_NAV_CONTROLLER.navigate(R.id.navigation_video_pager, bundle)
             }
         } else {
@@ -43,8 +43,8 @@ class HolderVideoMessage(itemMessage: MessageItemVideoBinding): RecyclerView.Vie
             imageReceived.downloadAndSetImage(view.fileUrl)
             blockReceivedVideo.setOnClickListener{
                 val bundle:Bundle = Bundle()
-                bundle.putString("uid",view.userVideoId)
-                bundle.putInt("position", 0)
+                bundle.putInt("position", 2)
+                bundle.putStringArrayList("listUsersUid", listUsersUid)
                 APP_NAV_CONTROLLER.navigate(R.id.navigation_video_pager, bundle)
             }
         }

@@ -19,7 +19,7 @@ class HolderTextMessage(itemMessage: MessageItemTextBinding) : RecyclerView.View
     private val chatReceivedMessageTime = itemMessage.chatReceivedTime
 
 
-    override fun drawMessage(view: MessageView) {
+    override fun drawMessage(view: MessageView, messageList: MutableList<MessageView>) {
         if (view.from == CURRENT_UID) {
             blockUserMessage.visibility = View.VISIBLE
             blockReceivedMessage.visibility = View.GONE

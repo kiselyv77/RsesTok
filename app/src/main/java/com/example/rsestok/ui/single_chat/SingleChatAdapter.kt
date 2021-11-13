@@ -21,7 +21,8 @@ class SingleChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as MessageHolder).drawMessage(listMessageCache[position])
+
+        (holder as MessageHolder).drawMessage(listMessageCache[position], listMessageCache)
     }
 
 
