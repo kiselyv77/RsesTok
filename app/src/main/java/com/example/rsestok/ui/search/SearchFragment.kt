@@ -89,6 +89,7 @@ class SearchFragment : Fragment() {
 
         }
 
+
         refUsers.addValueEventListener(listenerUsers)
         rcView.adapter = adapter
         rcView.layoutManager = LinearLayoutManager(APP_ACTIVITY)

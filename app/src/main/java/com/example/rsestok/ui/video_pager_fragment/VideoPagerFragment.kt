@@ -31,7 +31,7 @@ class VideoPagerFragment : Fragment() {
     private lateinit var  refVideos : DatabaseReference
     private lateinit var refSubscriptions: DatabaseReference
 
-    //var uid:String? = ""
+    var position:Int = 1
     var listSubscribers = arrayListOf<String>()
     lateinit var childListener : AppChildEventListener
 
@@ -44,6 +44,7 @@ class VideoPagerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         listUsersUid = arguments?.getStringArrayList("listUsersUid")!!
+        position = arguments?.getInt("position")!!
         listUsersUid.forEach{
             listReference.add(REF_DATABASE_ROOT.child(NODE_VIDEOS).child(it))
         }
@@ -83,8 +84,7 @@ class VideoPagerFragment : Fragment() {
         viewPage.adapter = videoAdapter
         viewPage.postDelayed(
         {
-
-            viewPage.setCurrentItem(arguments?.getInt("position")!!, false)//Этот костыль нужно убрать будет!!!
+            viewPage.setCurrentItem(position, false)//Этот костыль нужно убрать будет!!!
             viewPage.visibility = View.VISIBLE
         }, 30)
     }

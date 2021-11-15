@@ -1,7 +1,14 @@
 package com.example.rsestok
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -20,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         APP_ACTIVITY = this
@@ -38,6 +46,23 @@ class MainActivity : AppCompatActivity() {
 
         navView.setupWithNavController(APP_NAV_CONTROLLER)
         navViewRegister.setupWithNavController(APP_NAV_CONTROLLER)
+        APP_NAV_CONTROLLER.addOnDestinationChangedListener(
+            NavController.OnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.navigation_home) {
+                APP_ACTIVITY.setColorNavView(Color.BLACK, Color.WHITE)
+                APP_ACTIVITY.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                val attrib = APP_ACTIVITY.window.attributes
+                attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+
+            } else {
+                APP_ACTIVITY.setColorNavView(Color.WHITE, Color.BLACK)
+                APP_ACTIVITY.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                val attrib = APP_ACTIVITY.window.attributes
+                attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            }
+        })
+
+
 
     }
 
@@ -70,6 +95,23 @@ class MainActivity : AppCompatActivity() {
     }
     fun visibleNavView(){
         binding.navView.visibility = View.VISIBLE
+    }
+
+
+    fun setColorNavView(colorBackound:Int, colorIcon:Int){
+        binding.navView.background = ColorDrawable(colorBackound)
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_selected),
+            intArrayOf(android.R.attr.state_enabled),
+        )
+        val colors = intArrayOf(
+            Color.BLUE,
+            colorIcon,
+        )
+        val stateList = ColorStateList(states, colors)
+        binding.navView.itemTextColor = stateList
+        binding.navView.itemIconTintList = stateList
+
     }
 
 }
