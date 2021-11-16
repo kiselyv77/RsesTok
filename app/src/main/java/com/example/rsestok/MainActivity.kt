@@ -24,11 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-
-
-
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_RsesTok)
         super.onCreate(savedInstanceState)
         APP_ACTIVITY = this
         initFirebase()
@@ -36,8 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
         val navView: BottomNavigationView = binding.navView
         val navViewRegister: BottomNavigationView = binding.navViewRegister

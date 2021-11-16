@@ -97,6 +97,8 @@ class MessengerFragment : Fragment() {
                     else if (tempList[0].type == TYPE_MESSAGE_VIDEO){  newModel.lastMessage = "Видео"}
                     else{ newModel.lastMessage = tempList[0].text }
 
+
+
                     adapter.addItemToBottom(newModel)
 
             })

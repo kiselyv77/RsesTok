@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
     private lateinit var  videoAdapter : VideoPagerAdapter
-    private var listUsersUid = listOf<UserModel>()
     private var listReference = arrayListOf<DatabaseReference>()
 
     private lateinit var  refVideos : DatabaseReference
@@ -79,7 +78,7 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         val viewPage = binding.viewPage
         usersListener = AppValueEventListener{
-            listUsersUid = it.children.map{ it.getUserModel() }
+            val listUsersUid = it.children.map{ it.getUserModel() }
             listUsersUid.forEach{
                 listReference.add(REF_DATABASE_ROOT.child(NODE_VIDEOS).child(it.id))
                 listReference.forEach{

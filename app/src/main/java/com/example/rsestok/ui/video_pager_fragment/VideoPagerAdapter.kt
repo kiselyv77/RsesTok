@@ -173,10 +173,10 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
         dialogBindingMenu.btnDelete.setOnClickListener{
             bottomSheetDialogMenu.dismiss()
-            deleteVideo(listVideos[position]){
-                showToast("Видео удалено")
-                APP_NAV_CONTROLLER.popBackStack()
-            }
+            deleteVideo(listVideos[position]){}
+            showToast("Видео удалено")
+            deleteItem(position)
+
         }
         dialogBindingMenu.btnEdit.setOnClickListener{
             bottomSheetDialogMenu.dismiss()
@@ -235,6 +235,13 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
             listVideos.add(item)
             notifyItemInserted(listVideos.size)
         }
+    }
+
+    fun deleteItem(position: Int){
+        listVideos.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, listVideos.size)
+
     }
 
 
