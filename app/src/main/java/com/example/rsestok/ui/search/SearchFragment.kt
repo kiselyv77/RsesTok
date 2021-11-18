@@ -83,10 +83,7 @@ class SearchFragment : Fragment() {
 
         listenerUsers = AppValueEventListener{
             listUsers = it.children.map{ it.getUserModel() }.filter {it.fullname.toLowerCase().contains(searchView.query)}
-
-
             adapter.updateListItems(listUsers)
-
         }
 
 
