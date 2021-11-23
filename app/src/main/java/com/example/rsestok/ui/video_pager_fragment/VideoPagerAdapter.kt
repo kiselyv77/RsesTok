@@ -206,8 +206,11 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         bottomSheetSend.window?.attributes?.windowAnimations = R.style.DialogAnimation
         bottomSheetSend.show()
         APP_NAV_CONTROLLER.addOnDestinationChangedListener(NavController.OnDestinationChangedListener { controller, destination, arguments ->
-             if (destination.id != R.id.navigation_video_pager) {
-                 bottomSheetSend.dismiss() }})
+             if (destination.id != R.id.navigation_video_pager && destination.id != R.id.navigation_home) {
+                 bottomSheetSend.dismiss()
+             }
+        }
+        )
 
         val refSubscribers = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_SUBSCRIBERS)
         val subscribersListener = AppValueEventListener {

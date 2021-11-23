@@ -95,33 +95,34 @@ inline fun  initUser( crossinline function: () -> Unit) {
 
 //AUTH
 fun createUser(email:String, password:String, fullname:String, username:String) {
-    usernamesListener = AppValueEventListener {
-        if(it.children.map{ it.getStringList() }.contains(username)){
-            showToast("Такой username уже есть")
-        }
-        else{
-            AUTH.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(APP_ACTIVITY) { task ->
-                    if (task.isSuccessful) {
-                        val uid = AUTH.currentUser?.uid.toString()
+    AUTH.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener(APP_ACTIVITY) { task ->
+            if (task.isSuccessful) {
+                val uid = AUTH.currentUser?.uid.toString()
+                val dateMap = mutableMapOf<String, Any>()
+                dateMap[CHILD_ID] = uid
+                dateMap[CHILD_FULLNAME] = fullname
+                dateMap[CHILD_USERNAME] = username
+                dateMap[CHILD_STATUS] = UserStatus.ONLINE
 
-                        val dateMap = mutableMapOf<String, Any>()
-                        dateMap[CHILD_ID] = uid
-                        dateMap[CHILD_FULLNAME] = fullname
-                        dateMap[CHILD_USERNAME] = username
-                        dateMap[CHILD_STATUS] = UserStatus.ONLINE
-
-                        REF_DATABASE_ROOT.child(NODE_USERNAMES).child(uid).setValue(username)
-                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
-                        restartActivity()
-                    } else {
-                        showToast(task.exception?.message.toString())
-                    }
-                }
+                REF_DATABASE_ROOT.child(NODE_USERNAMES).child(uid).setValue(username)
+                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                restartActivity()
+            } else {
+                showToast(task.exception?.message.toString())
+            }
         }
-    }
-    REF_DATABASE_ROOT.child(NODE_USERNAMES).addListenerForSingleValueEvent(usernamesListener)
-    REF_DATABASE_ROOT.child(NODE_USERNAMES).removeEventListener(usernamesListener)
+//    usernamesListener = AppValueEventListener {
+//        if(it.children.map{ it.getStringList() }.contains(username)){
+//            showToast("Такой username уже есть")
+//        }
+//        else{
+//
+//        }
+//    }
+//
+//    REF_DATABASE_ROOT.child(NODE_USERNAMES).addListenerForSingleValueEvent(usernamesListener)
+//    REF_DATABASE_ROOT.child(NODE_USERNAMES).removeEventListener(usernamesListener)
 
 }
 fun loginUser(email:String, password:String){

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.rsestok.createUser
 import com.example.rsestok.databinding.FragmentRegisterBinding
 import com.example.rsestok.ui.add.AddViewModel
+import com.example.rsestok.utilits.showToast
 
 class RegisterFragment : Fragment() {
 
