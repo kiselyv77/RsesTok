@@ -8,6 +8,7 @@ import com.example.rsestok.models.MessageModel
 import com.example.rsestok.models.UserModel
 import com.example.rsestok.models.VideoModel
 import com.example.rsestok.utilits.*
+import com.example.rsestok.utilits.app_listeners.AppChildEventListener
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
@@ -114,14 +115,14 @@ fun createUser(email:String, password:String, fullname:String, username:String) 
         }
 //    usernamesListener = AppValueEventListener {
 //        if(it.children.map{ it.getStringList() }.contains(username)){
-//            showToast("Такой username уже есть")
-//        }
+//           showToast("Такой username уже есть")
+//       }
 //        else{
-//
+//            showToast("Работает")
 //        }
 //    }
 //
-//    REF_DATABASE_ROOT.child(NODE_USERNAMES).addListenerForSingleValueEvent(usernamesListener)
+//    REF_DATABASE_ROOT.child(NODE_USERNAMES).addValueEventListener(usernamesListener)
 //    REF_DATABASE_ROOT.child(NODE_USERNAMES).removeEventListener(usernamesListener)
 
 }
@@ -437,7 +438,7 @@ fun likeVideo(videoModel: VideoModel, uid: String){
 
 
     val globalLikesMap = hashMapOf<String, Any>()
-    globalLikesMap["$refLikes/${videoModel.id}"] = CURRENT_UID
+    globalLikesMap["$refLikes/${videoModel.id}$CURRENT_UID"] = CURRENT_UID+videoModel.id
     REF_DATABASE_ROOT.updateChildren(globalLikesMap)
 }
 
@@ -447,7 +448,7 @@ fun removeLikeVideo(videoModel: VideoModel, uid: String){
 
     val refLikes = "$NODE_USERS/${videoModel.userId}/${NIDE_LIKES}"
 
-    REF_DATABASE_ROOT.child("$refLikes/${videoModel.id}").removeValue()
+    REF_DATABASE_ROOT.child("$refLikes/${videoModel.id}$CURRENT_UID").removeValue()
 
 }
 

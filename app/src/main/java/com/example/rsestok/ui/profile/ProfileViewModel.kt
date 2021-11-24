@@ -50,7 +50,9 @@ class ProfileViewModel(val application: Application, val uid:String) : ViewModel
 
                 REF_DATABASE_ROOT.child(NODE_USERS).child(uid).child(NIDE_LIKES)
                     .addListenerForSingleValueEvent(AppValueEventListener {
+
                         _listLikes.value = it.children.map{ it.getStringList() } as ArrayList<String>
+
                     })
 
                 _fullName.value = USER.fullname
