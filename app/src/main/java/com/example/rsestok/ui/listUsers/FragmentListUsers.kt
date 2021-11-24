@@ -103,6 +103,7 @@ class FragmentListUsers : Fragment() {
         searchView.setOnQueryTextListener(AppSearch { newText->
             val filteredListSubscribers = listSubscribers.filter{list.contains(it.id)}.filter {it.fullname.toLowerCase().contains(newText.toString())}
             adapter.updateListItems(filteredListSubscribers)
+
         })
     }
 
