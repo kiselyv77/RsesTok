@@ -25,6 +25,7 @@ import com.example.rsestok.utilits.showToast
 
 class FragmentListUsers : Fragment() {
 
+
     private val refUsers = REF_DATABASE_ROOT.child(NODE_USERS)
 
     private lateinit var searchViewModel: ListUsersViewModel
@@ -39,6 +40,7 @@ class FragmentListUsers : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private var list = arrayListOf<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         searchViewModel = ViewModelProvider(this).get(ListUsersViewModel::class.java)
@@ -46,9 +48,6 @@ class FragmentListUsers : Fragment() {
         _binding = ListUsersBinding.inflate(inflater, container, false)
         val root: View = binding.root
         initToolbar()
-
-
-
 
         return root
     }
@@ -78,10 +77,10 @@ class FragmentListUsers : Fragment() {
 
         listenerUsers = AppValueEventListener{
             listSubscribers = it.children.map{ it.getUserModel() }.filter {it.fullname.toLowerCase().contains(searchView.query)} as ArrayList<UserModel>
-            val list = arguments?.getStringArrayList("list")
+            list = arguments?.getStringArrayList("list") as ArrayList<String>
 
 
-            adapter.updateListItems(listSubscribers.filter { list!!.contains(it.id) })
+            adapter.updateListItems(listSubscribers.filter { list.contains(it.id) })
         }
 
         refUsers.addValueEventListener(listenerUsers)
@@ -102,7 +101,7 @@ class FragmentListUsers : Fragment() {
         searchView.maxWidth = 5000
         searchView.queryHint = "Поиск"
         searchView.setOnQueryTextListener(AppSearch { newText->
-            val filteredListSubscribers = listSubscribers.filter {it.fullname.toLowerCase().contains(newText.toString())}
+            val filteredListSubscribers = listSubscribers.filter{list.contains(it.id)}.filter {it.fullname.toLowerCase().contains(newText.toString())}
             adapter.updateListItems(filteredListSubscribers)
         })
     }
