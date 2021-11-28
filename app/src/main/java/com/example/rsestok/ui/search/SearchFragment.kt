@@ -23,6 +23,7 @@ import com.example.rsestok.utilits.app_listeners.AppChildEventListener
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.showToast
 import com.google.android.exoplayer2.ExoPlayer
+import java.util.*
 
 
 class SearchFragment : Fragment() {
@@ -82,7 +83,7 @@ class SearchFragment : Fragment() {
         val rcView = binding.rcView
 
         listenerUsers = AppValueEventListener{
-            listUsers = it.children.map{ it.getUserModel() }.filter {it.fullname.toLowerCase().contains(searchView.query)}
+            listUsers = it.children.map{ it.getUserModel() }.filter {it.fullname.lowercase().contains(searchView.query.toString().lowercase())}
             adapter.updateListItems(listUsers)
         }
 
@@ -100,7 +101,7 @@ class SearchFragment : Fragment() {
         searchView.maxWidth = 5000
         searchView.queryHint = "Поиск"
         searchView.setOnQueryTextListener(AppSearch {newText->
-            val filteredListUsers = listUsers.filter {it.fullname.toLowerCase().contains(newText.toString())}
+            val filteredListUsers = listUsers.filter {it.fullname.lowercase().contains(newText.toString().lowercase())}
             adapter.updateListItems(filteredListUsers)
 
         })

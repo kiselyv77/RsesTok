@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.rsestok.NODE_USERNAMES
+import com.example.rsestok.REF_DATABASE_ROOT
 import com.example.rsestok.createUser
 import com.example.rsestok.databinding.FragmentRegisterBinding
+import com.example.rsestok.getStringList
 import com.example.rsestok.ui.add.AddViewModel
+import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.showToast
 
 class RegisterFragment : Fragment() {
@@ -32,11 +36,17 @@ class RegisterFragment : Fragment() {
 
         })
 
+
+        return root
+    }
+
+    override fun onResume() {
+        super.onResume()
         binding.btnRegister.setOnClickListener{
             val fullName = binding.inputName.text.toString().replace(" ", "")+" "+binding.inputSurname.text.toString().replace(" ","")
             createUser(binding.inputLogin.text.toString(),binding.inputPassword.text.toString(), fullName, binding.inputUsername.text.toString())
         }
-        return root
+
     }
 
 

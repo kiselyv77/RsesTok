@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.CURRENT_UID
+import com.example.rsestok.NODE_VIDEOS
 import com.example.rsestok.R
+import com.example.rsestok.REF_DATABASE_ROOT
 import com.example.rsestok.databinding.MessageItemVideoBinding
 import com.example.rsestok.ui.single_chat.message_recycling_view.views.MessageView
 import com.example.rsestok.utilits.*
@@ -21,9 +23,9 @@ class HolderVideoMessage(itemMessage: MessageItemVideoBinding): RecyclerView.Vie
 
 
     override fun drawMessage(view: MessageView, messageList: MutableList<MessageView>) {
-
         val listVideoMessage = messageList.filter {it.type == TYPE_MESSAGE_VIDEO}
         val listUsersUid = arrayListOf<String>()
+        val videoUri = view.videoURI
         listVideoMessage.forEach {listUsersUid.add(it.userVideoId)}
         if (view.from == CURRENT_UID) {
             blockUserVideo.visibility = View.VISIBLE
@@ -34,6 +36,7 @@ class HolderVideoMessage(itemMessage: MessageItemVideoBinding): RecyclerView.Vie
                 val bundle:Bundle = Bundle()
                 bundle.putInt("position", 2)
                 bundle.putStringArrayList("listUsersUid", listUsersUid)
+                bundle.putString("videoUri", videoUri)
                 APP_NAV_CONTROLLER.navigate(R.id.navigation_video_pager, bundle)
             }
         } else {
@@ -45,6 +48,7 @@ class HolderVideoMessage(itemMessage: MessageItemVideoBinding): RecyclerView.Vie
                 val bundle:Bundle = Bundle()
                 bundle.putInt("position", 2)
                 bundle.putStringArrayList("listUsersUid", listUsersUid)
+                bundle.putString("videoUri", videoUri)
                 APP_NAV_CONTROLLER.navigate(R.id.navigation_video_pager, bundle)
             }
         }

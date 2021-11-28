@@ -14,7 +14,6 @@ import com.example.rsestok.sendVideo
 import com.example.rsestok.utilits.APP_ACTIVITY
 import com.example.rsestok.utilits.UserStatus
 import com.example.rsestok.utilits.downloadAndSetImage
-import com.example.rsestok.utilits.showToast
 
 class SearchAdapter: AbstractAdapter() {
     override fun onBindViewHolder(holder: SearchUserHolder, position: Int) {
@@ -45,16 +44,14 @@ class SearchAdapter: AbstractAdapter() {
 }
 
 
-class SearchAdapterSendVideo(val thumbnailUrl: String, val userId: String, val id: String):AbstractAdapter(){
+class SearchAdapterSendVideo(val thumbnailUrl: String, val userId: String, val videoUri: String):AbstractAdapter(){
     override fun onBindViewHolder(holder: SearchUserHolder, position: Int) {
         holder.itemView.setOnClickListener{
             val navController = APP_ACTIVITY.findNavController(R.id.nav_host_fragment_activity_main)
             val bundle:Bundle = Bundle()
             bundle.putString("uid", listUsers[position].id)
-            sendVideo(thumbnailUrl, userId, id, listUsers[position].id)
+            sendVideo(thumbnailUrl, userId, videoUri, listUsers[position].id)
             navController.navigate(R.id.navigation_single_chat, bundle)
-
-
         }
 
         holder.fullName.text = listUsers[position].fullname

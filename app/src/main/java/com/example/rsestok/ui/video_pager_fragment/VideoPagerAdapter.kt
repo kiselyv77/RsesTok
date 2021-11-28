@@ -197,7 +197,7 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
     }
 
     private fun showDialogSendVideo(position: Int){
-        val adapter = SearchAdapterSendVideo(listVideos[position].thumbnailUrl, listVideos[position].userId, listVideos[position].id)
+        val adapter = SearchAdapterSendVideo(listVideos[position].thumbnailUrl, listVideos[position].userId, listVideos[position].videoURI)
         val bottomSheetSend = BottomSheetDialog(APP_ACTIVITY)
         val dialogBindingSend = BottomSheetSendBinding.inflate(LayoutInflater.from( bottomSheetSend.context), null ,false)
         dialogBindingSend.listUsers.adapter = adapter

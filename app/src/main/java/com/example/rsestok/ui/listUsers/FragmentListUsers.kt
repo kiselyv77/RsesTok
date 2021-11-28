@@ -76,7 +76,7 @@ class FragmentListUsers : Fragment() {
         val rcView = binding.rcView
 
         listenerUsers = AppValueEventListener{
-            listSubscribers = it.children.map{ it.getUserModel() }.filter {it.fullname.toLowerCase().contains(searchView.query)} as ArrayList<UserModel>
+            listSubscribers = it.children.map{ it.getUserModel() }.filter {it.fullname.lowercase().contains(searchView.query.toString().lowercase())} as ArrayList<UserModel>
             list = arguments?.getStringArrayList("list") as ArrayList<String>
 
 
@@ -101,7 +101,7 @@ class FragmentListUsers : Fragment() {
         searchView.maxWidth = 5000
         searchView.queryHint = "Поиск"
         searchView.setOnQueryTextListener(AppSearch { newText->
-            val filteredListSubscribers = listSubscribers.filter{list.contains(it.id)}.filter {it.fullname.toLowerCase().contains(newText.toString())}
+            val filteredListSubscribers = listSubscribers.filter{list.contains(it.id)}.filter {it.fullname.lowercase().contains(newText.toString().lowercase())}
             adapter.updateListItems(filteredListSubscribers)
 
         })

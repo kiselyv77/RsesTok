@@ -26,6 +26,7 @@ class VideoPagerFragment : Fragment() {
 
     private lateinit var  videoAdapter : VideoPagerAdapter
     private lateinit var listUsersUid : List<String>
+    private lateinit var videoUri : String
     private var listReference = arrayListOf<DatabaseReference>()
 
     private lateinit var  refVideos : DatabaseReference
@@ -33,7 +34,9 @@ class VideoPagerFragment : Fragment() {
 
     var position:Int = 1
     var listSubscribers = arrayListOf<String>()
+
     lateinit var childListener : AppChildEventListener
+
 
 
     // This property is only valid between onCreateView and
@@ -43,25 +46,30 @@ class VideoPagerFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.P)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        listUsersUid = arguments?.getStringArrayList("listUsersUid")!!
+        listUsersUid = arguments?.getStringArrayList("listUsersUid")!! //Список пользователей видео которых будут отображатся
+        videoUri = arguments?.getString("videoUri")?: "" //эта ссылка на видео-файл передается из чата
+
+
         position = arguments?.getInt("position")!!
         listUsersUid.forEach{
-            listReference.add(REF_DATABASE_ROOT.child(NODE_VIDEOS).child(it))
+            listReference.add(REF_DATABASE_ROOT.child(NODE_VIDEOS).child(it))// Создаем список ссылок на каждого пользователя в базе данных
         }
+
+
         video_pager_viewModel = ViewModelProvider(this).get(VideoPagerViewModel::class.java)
 
         _binding = FragmentVideoPagerBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        APP_ACTIVITY.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        val attrib = APP_ACTIVITY.window.attributes
-        attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-
         return root
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onResume() {
         super.onResume()
+        APP_ACTIVITY.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        val attrib = APP_ACTIVITY.window.attributes
+        attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         APP_ACTIVITY.goneNavView()
         initRecyclerView()
     }
@@ -72,14 +80,25 @@ class VideoPagerFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
+
         val viewPage = binding.viewPage
         videoAdapter = VideoPagerAdapter(listSubscribers)
         childListener = AppChildEventListener{
             val video = it.getVideoModel()
-            videoAdapter.addItemToBottom(video) }
-        listReference.forEach{
-            it.addChildEventListener(childListener)
+            if(videoUri.length == 0){ //если эта строка ноль значит VideoPagerFragment добавляет все видеозаписи
+                videoAdapter.addItemToBottom(video)
+            }
+            else { //Если эта строка больше нуля значит мы перешли из чата и будем добавлять только одно видео на которое тапнули в чате
+                if(video.videoURI == videoUri){ // если пришедшая из чата ссылка на видео равна ссылке на видео из модели видео то добавляем
+                    videoAdapter.addItemToBottom(video) // это совпадение всегда будет только одно
+                }
+            }
         }
+
+        listReference.forEach{
+            it.addChildEventListener(childListener) //Следим за каждым пользователем
+        }
+
 
         viewPage.adapter = videoAdapter
         viewPage.postDelayed(

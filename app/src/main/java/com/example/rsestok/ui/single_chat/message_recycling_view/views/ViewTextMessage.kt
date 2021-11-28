@@ -8,7 +8,8 @@ data class ViewTextMessage(
     override val fileUrl: String= "",
     override val text: String,
     override val userVideoId: String,
-    override val type: String
+    override val type: String,
+    override var videoURI: String = ""
 ) :MessageView {
 
     override fun getTypeView(): Int {

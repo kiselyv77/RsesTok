@@ -5,7 +5,9 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rsestok.NODE_VIDEOS
 import com.example.rsestok.R
+import com.example.rsestok.REF_DATABASE_ROOT
 import com.example.rsestok.databinding.InstagramTimelineItemRecyclerBinding
 import com.example.rsestok.models.VideoModel
 import com.example.rsestok.ui.profile.ProfileVideoAdapter.ProfileVideoHolder
@@ -42,15 +44,10 @@ class ProfileVideoAdapter(val uid:String): RecyclerView.Adapter<ProfileVideoHold
         holder.thumbnail.downloadAndSetImage(listVideos[position].thumbnailUrl, R.drawable.back_white)
 
         holder.itemView.setOnClickListener {
-//            if(holder.playerView.player?.playbackState == null){
-//                holder.playerView.loadVideo(listVideos[position].videoURI, this, holder.progressBar, holder.thumbnail, position, false)
-//            }
-//            else{
-//                PlayerViewAdapter.playPause(holder.animPlay,holder.animPause,position)
-//            }
             val bundle = Bundle()
             val listVideo = arrayListOf<Parcelable>()
             listVideo.addAll(listVideos)
+
 
             bundle.putInt("position", position)
             bundle.putStringArrayList("listUsersUid", arrayListOf(uid))

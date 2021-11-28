@@ -77,7 +77,6 @@ class ProfileFragment : Fragment() {
         binding.toolbar.menu.getItem(1).setOnMenuItemClickListener(object : MenuItem.OnMenuItemClickListener{
             override fun onMenuItemClick(item: MenuItem?): Boolean {
                 DialogChangeFullname(binding.toolbar.title.toString()).show()
-
                 return true
             }
         })

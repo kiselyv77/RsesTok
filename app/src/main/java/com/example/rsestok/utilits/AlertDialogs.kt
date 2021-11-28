@@ -36,8 +36,6 @@ class DialogChangeFullname(oldFullname:String){
 
 class DialogChangeUsername(oldUsername: String){
     val dialog = Dialog(APP_ACTIVITY)
-
-
     init{
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)

@@ -9,6 +9,7 @@ interface MessageView {
     val text:String
     val userVideoId:String
     val type:String
+    var videoURI:String
 
     companion object{
         val MESSAGE_IMAGE:Int

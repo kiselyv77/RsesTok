@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.rsestok.*
 import com.example.rsestok.databinding.FragmentLoginBinding
 import com.example.rsestok.databinding.FragmentRegisterBinding
-import com.example.rsestok.loginUser
+import com.example.rsestok.utilits.app_listeners.AppValueEventListener
+import com.example.rsestok.utilits.showToast
 
 class LoginFragment : Fragment() {
 
@@ -36,6 +38,11 @@ class LoginFragment : Fragment() {
             loginUser(binding.inputLogin.text.toString(), binding.inputPassword.text.toString())
         }
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 
     override fun onDestroyView() {

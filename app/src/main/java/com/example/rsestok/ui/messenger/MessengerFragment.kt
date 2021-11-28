@@ -2,6 +2,7 @@ package com.example.rsestok.ui.messenger
 
 import MessengerAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.*
 import com.example.rsestok.databinding.FragmentMessengerBinding
 import com.example.rsestok.models.ChatModel
+import com.example.rsestok.models.UserModel
 import com.example.rsestok.utilits.*
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.google.firebase.database.DatabaseReference
@@ -30,9 +32,10 @@ class MessengerFragment : Fragment() {
     private val refChatList = REF_DATABASE_ROOT.child(NODE_CHAT_LIST).child(CURRENT_UID)
     private val refUsers = REF_DATABASE_ROOT.child(NODE_USERS)
     private val refMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
-    private var listChats = listOf<ChatModel>()
+    private var listChats = ArrayList<ChatModel>()
     private var listChatsInit = arrayListOf<ChatModel>()
     val mapListeners = arrayMapOf<DatabaseReference, AppValueEventListener>()
+    lateinit var searchView : SearchView
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -59,7 +62,7 @@ class MessengerFragment : Fragment() {
         adapter = MessengerAdapter()
         //1 request
         val request1 = AppValueEventListener{
-            listChats = it.children.map { it.getChatModel() }
+            listChats = it.children.map { it.getChatModel() }.filter {it.fullname.lowercase().contains(searchView.query.toString().lowercase())} as ArrayList<ChatModel>
             listChats.forEach {model->
                 when(model.type){
                     TYPE_CHAT -> showChat(model)
@@ -73,23 +76,27 @@ class MessengerFragment : Fragment() {
         rcView.adapter = adapter
         rcView.layoutManager = LinearLayoutManager(APP_ACTIVITY) }
 
-    private fun showChat(model: ChatModel) {
 
+
+
+    private fun showChat(model: ChatModel){
         refUsers.child(model.id).addValueEventListener(AppValueEventListener{
             val newModel = it.getChatModel()
-
             //2 request
             val request2 = AppValueEventListener{
                 val tempList = it.children.map { it.getMessageModel() }
                 if(tempList.isEmpty()){ newModel.lastMessage = "Чат отчищен" }
-                else if (tempList[0].type == TYPE_MESSAGE_VOICE){  newModel.lastMessage = "Голосовое сообщение"}
-                else if (tempList[0].type == TYPE_MESSAGE_VIDEO){  newModel.lastMessage = "Видео"}
+                else if (tempList[0].type == TYPE_MESSAGE_VOICE){newModel.lastMessage = "Голосовое сообщение"}
+                else if (tempList[0].type == TYPE_MESSAGE_VIDEO){newModel.lastMessage = "Видео"}
                 else{ newModel.lastMessage = tempList[0].text }
                 adapter.addItemToBottom(newModel)
+
             }
+
             refMessages.child(model.id).limitToLast(1).addValueEventListener(request2)
             mapListeners[refMessages] = request2
         })
+
     }
 
     private fun initToolbar() {
@@ -98,12 +105,19 @@ class MessengerFragment : Fragment() {
         })
 
         binding.toolbar.inflateMenu(R.menu.search_bar)
-        val searchView = binding.toolbar.menu.findItem(R.id.appSearchBar).actionView as SearchView
+        searchView = binding.toolbar.menu.findItem(R.id.appSearchBar).actionView as SearchView
         searchView.maxWidth = 5000
         searchView.queryHint = "Поиск"
         searchView.setOnQueryTextListener(AppSearch{newText->
-//            val filteredListUsers = adapter.listChats.filter {it.fullname.toLowerCase().contains(newText.toString())}
-//            adapter.updateListItems(filteredListUsers)
+//            adapter.updateListItems(arrayListOf<ChatModel>())
+//            Log.d("key", listChatsInit[0].fullname)
+//            val filteredListChats = listChatsInit.filter {it.fullname.lowercase().contains(newText.toString().lowercase())}
+//
+//            filteredListChats.forEach {model->
+//               when(model.type){
+//                    TYPE_CHAT -> showChat(model)
+//                }
+//            }
         })
     }
 

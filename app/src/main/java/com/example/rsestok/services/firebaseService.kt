@@ -8,7 +8,6 @@ import com.example.rsestok.models.MessageModel
 import com.example.rsestok.models.UserModel
 import com.example.rsestok.models.VideoModel
 import com.example.rsestok.utilits.*
-import com.example.rsestok.utilits.app_listeners.AppChildEventListener
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
@@ -76,6 +75,7 @@ lateinit var REF_STORAGE_ROOT: StorageReference
 lateinit var USER: UserModel
 lateinit var usernamesListener: AppValueEventListener
 
+
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
@@ -96,36 +96,35 @@ inline fun  initUser( crossinline function: () -> Unit) {
 
 //AUTH
 fun createUser(email:String, password:String, fullname:String, username:String) {
-    AUTH.createUserWithEmailAndPassword(email, password)
-        .addOnCompleteListener(APP_ACTIVITY) { task ->
-            if (task.isSuccessful) {
-                val uid = AUTH.currentUser?.uid.toString()
-                val dateMap = mutableMapOf<String, Any>()
-                dateMap[CHILD_ID] = uid
-                dateMap[CHILD_FULLNAME] = fullname
-                dateMap[CHILD_USERNAME] = username
-                dateMap[CHILD_STATUS] = UserStatus.ONLINE
-
-                REF_DATABASE_ROOT.child(NODE_USERNAMES).child(uid).setValue(username)
-                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
-                restartActivity()
-            } else {
-                showToast(task.exception?.message.toString())
-            }
+    usernamesListener = AppValueEventListener {
+        if(it.children.map{ it.getStringList() }.contains(username)){
+            showToast("Пользователь с таким именем уже существует")
         }
-//    usernamesListener = AppValueEventListener {
-//        if(it.children.map{ it.getStringList() }.contains(username)){
-//           showToast("Такой username уже есть")
-//       }
-//        else{
-//            showToast("Работает")
-//        }
-//    }
-//
-//    REF_DATABASE_ROOT.child(NODE_USERNAMES).addValueEventListener(usernamesListener)
-//    REF_DATABASE_ROOT.child(NODE_USERNAMES).removeEventListener(usernamesListener)
+        else{
+            AUTH.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(APP_ACTIVITY) { task ->
+                    if (task.isSuccessful) {
+                        val uid = AUTH.currentUser?.uid.toString()
+                        val dateMap = mutableMapOf<String, Any>()
+                        dateMap[CHILD_ID] = uid
+                        dateMap[CHILD_FULLNAME] = fullname
+                        dateMap[CHILD_USERNAME] = username
+                        dateMap[CHILD_STATUS] = UserStatus.ONLINE
 
+                        REF_DATABASE_ROOT.child(NODE_USERNAMES).child(uid).setValue(username)
+                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                        restartActivity()
+                    } else {
+                        showToast(task.exception?.message.toString())
+                    }
+                }
+        }
+    }
+    REF_DATABASE_ROOT.child(NODE_USERNAMES).addListenerForSingleValueEvent(usernamesListener)
+    REF_DATABASE_ROOT.child(NODE_USERNAMES).removeEventListener(usernamesListener)
 }
+
+
 fun loginUser(email:String, password:String){
     AUTH.signInWithEmailAndPassword(email,password).addOnCompleteListener{ task ->
         if(task.isSuccessful){
@@ -160,6 +159,8 @@ fun updateCurrentUsername(newUserName: String) {
         }
     }
     REF_DATABASE_ROOT.child(NODE_USERNAMES).addListenerForSingleValueEvent(usernamesListener)
+    REF_DATABASE_ROOT.child(NODE_USERNAMES).removeEventListener(usernamesListener)
+
 }
 
 
@@ -297,7 +298,9 @@ fun sendMessageAsFile(
     messageKey: String,
     type: String,
     filename: String,
-    userVideoId: String = ""
+    userVideoId: String = "",
+    videoUri:String = ""
+
 ) {
     val refDialogUser = "$NODE_MESSAGES/$CURRENT_UID/$receivingUserID"
     val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserID/$CURRENT_UID"
@@ -310,6 +313,7 @@ fun sendMessageAsFile(
     mapMessage[CHILD_FILE_URL] = fileUrl
     mapMessage[CHILD_TEXT] = filename
     mapMessage[CHILD_USER_VIDEO_ID] = userVideoId
+    mapMessage[CHILD_VIDEO_URL] = videoUri
 
     val mapDialog = hashMapOf<String, Any>()
     mapDialog["$refDialogUser/$messageKey"] = mapMessage
@@ -452,9 +456,15 @@ fun removeLikeVideo(videoModel: VideoModel, uid: String){
 
 }
 
-fun sendVideo(thumbnailUrl: String, userId: String, videoId: String, receivingUserID: String) {
+fun sendVideo(
+    thumbnailUrl: String,
+    userId: String,
+    videoUri: String,
+    receivingUserID: String,
+) {
     saveMainList(receivingUserID, TYPE_CHAT)
-    sendMessageAsFile(receivingUserID, thumbnailUrl, getMessageKey(receivingUserID), TYPE_MESSAGE_VIDEO, "", userId)
+
+    sendMessageAsFile(receivingUserID, thumbnailUrl, getMessageKey(receivingUserID), TYPE_MESSAGE_VIDEO, "", userId, videoUri)
 }
 
 

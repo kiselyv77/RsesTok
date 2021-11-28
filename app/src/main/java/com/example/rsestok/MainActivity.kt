@@ -57,11 +57,7 @@ class MainActivity : AppCompatActivity() {
                 attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
             }
         })
-
-
-
     }
-
     override fun onStart() {
         super.onStart()
         UserStatus.updateState(UserStatus.ONLINE)
