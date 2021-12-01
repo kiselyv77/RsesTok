@@ -62,20 +62,23 @@ class MessengerFragment : Fragment() {
         adapter = MessengerAdapter()
         //1 request
         val request1 = AppValueEventListener{
-            listChats = it.children.map { it.getChatModel() }.filter {it.fullname.lowercase().contains(searchView.query.toString().lowercase())} as ArrayList<ChatModel>
+            listChats = it.children.map { it.getChatModel() } as ArrayList<ChatModel>
+
             listChats.forEach {model->
                 when(model.type){
                     TYPE_CHAT -> showChat(model)
                 }
             }
+
+
         }
+
 
         refChatList.addListenerForSingleValueEvent(request1)
         mapListeners[refChatList] = request1
 
         rcView.adapter = adapter
         rcView.layoutManager = LinearLayoutManager(APP_ACTIVITY) }
-
 
 
 
@@ -90,11 +93,13 @@ class MessengerFragment : Fragment() {
                 else if (tempList[0].type == TYPE_MESSAGE_VIDEO){newModel.lastMessage = "Видео"}
                 else{ newModel.lastMessage = tempList[0].text }
                 adapter.addItemToBottom(newModel)
+                listChatsInit.add(newModel)
 
             }
 
             refMessages.child(model.id).limitToLast(1).addValueEventListener(request2)
             mapListeners[refMessages] = request2
+
         })
 
     }
@@ -109,15 +114,11 @@ class MessengerFragment : Fragment() {
         searchView.maxWidth = 5000
         searchView.queryHint = "Поиск"
         searchView.setOnQueryTextListener(AppSearch{newText->
-//            adapter.updateListItems(arrayListOf<ChatModel>())
-//            Log.d("key", listChatsInit[0].fullname)
-//            val filteredListChats = listChatsInit.filter {it.fullname.lowercase().contains(newText.toString().lowercase())}
-//
-//            filteredListChats.forEach {model->
-//               when(model.type){
-//                    TYPE_CHAT -> showChat(model)
-//                }
-//            }
+            adapter.updateListItems(arrayListOf<ChatModel>())
+            val filteredListChats = listChatsInit.filter {it.fullname.lowercase().contains(newText.toString().lowercase())}
+            filteredListChats.forEach {
+                adapter.addItemToBottom(it)
+            }
         })
     }
 
