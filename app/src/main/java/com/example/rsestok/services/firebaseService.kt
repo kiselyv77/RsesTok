@@ -55,6 +55,7 @@ const val CHILD_SUBSCRIBERS = "subscribers" //ПОДПИСКИ
 const val CHILD_SUBSCRIPTIONS = "subscriptions" //ПОДПИСКИ
 
 const val NIDE_LIKES = "likes"
+const val NODE_COMENTS = "coments"
 
 //FOLDERS
 const val FOLDER_PROFILE_IMAGE = "profile_image"
@@ -453,6 +454,18 @@ fun removeLikeVideo(videoModel: VideoModel, uid: String){
     val refLikes = "$NODE_USERS/${videoModel.userId}/${NIDE_LIKES}"
 
     REF_DATABASE_ROOT.child("$refLikes/${videoModel.id}$CURRENT_UID").removeValue()
+
+}
+
+fun sendComent(videoModel:VideoModel, textComent:String){
+    val refComents = "$NODE_COMENTS/${videoModel.id}"
+    val mapComent = hashMapOf<String, Any>()
+    mapComent[CHILD_FROM] = CURRENT_UID
+    mapComent[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+    mapComent[CHILD_TEXT] = textComent
+    val mapComents = hashMapOf<String, Any>()
+    mapComents[getMessageKey(videoModel.id)] = mapComent
+    REF_DATABASE_ROOT.child(refComents).updateChildren(mapComents)
 
 }
 

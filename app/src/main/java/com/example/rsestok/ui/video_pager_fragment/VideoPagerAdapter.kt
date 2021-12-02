@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rsestok.*
 import com.example.rsestok.databinding.*
 import com.example.rsestok.ui.search.SearchAdapterSendVideo
+import com.example.rsestok.ui.single_chat.SingleChatAdapter
 import com.example.rsestok.utilits.APP_NAV_CONTROLLER
+import com.example.rsestok.utilits.app_listeners.AppChildEventListener
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.showToast
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -159,8 +161,22 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         bottomSheetDialogComents.window?.attributes?.windowAnimations = R.style.DialogAnimation
         bottomSheetDialogComents.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
+        dialogBindingComents.sendBtn.setOnClickListener {
+            sendComent(listVideos[position], dialogBindingComents.chatInputComent.text.toString())
+            dialogBindingComents.chatInputComent.setText("")
+        }
+
+
+        val rcView = dialogBindingComents.rView
+        rcView.layoutManager = LinearLayoutManager(APP_ACTIVITY)
+
+        val comentsListener = AppChildEventListener{ val coment = it.getMessageModel() }
+        val refComents = REF_DATABASE_ROOT.child(NODE_COMENTS).child(listVideos[position].id)
+        refComents.addChildEventListener(comentsListener)
+
 
         bottomSheetDialogComents.show()
+
     }
 
 

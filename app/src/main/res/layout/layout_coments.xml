@@ -26,13 +26,13 @@
                 android:minHeight="48dp"
                 android:paddingTop="@dimen/appPading"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/send_btn2"
+                app:layout_constraintEnd_toStartOf="@+id/send_btn"
                 app:layout_constraintStart_toStartOf="parent">
 
             </EditText>
 
             <ImageView
-                android:id="@+id/send_btn2"
+                android:id="@+id/send_btn"
                 android:layout_width="50dp"
                 android:layout_height="0dp"
                 android:background="@drawable/ripple_effect"
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="@+id/chat_input_coment" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/rсView"
                 android:layout_width="0dp"
                 android:layout_height="400dp"
                 app:layout_constraintBottom_toTopOf="@+id/chat_input_coment"

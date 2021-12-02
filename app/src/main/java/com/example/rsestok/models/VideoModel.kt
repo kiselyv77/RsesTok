@@ -15,6 +15,7 @@ data class VideoModel(
     var thumbnailUrl:String = "emphy",
     var description:String = "",
     var timeStamp: @RawValue Any = "",
-    var likes:HashMap<String, String> = HashMap()
+    var likes:HashMap<String, String> = HashMap(),
+    //var coments:HashMap<String, String> = HashMap(),
 
 ): Parcelable
