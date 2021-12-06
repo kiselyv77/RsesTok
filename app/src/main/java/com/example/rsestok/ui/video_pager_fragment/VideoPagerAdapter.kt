@@ -1,29 +1,34 @@
 package com.example.rsestok.ui.video_pager_fragment
 
 import android.os.Bundle
+import android.view.*
+import android.view.View.OnTouchListener
+import android.widget.AbsListView
+import androidx.collection.arrayMapOf
+import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rsestok.*
+import com.example.rsestok.databinding.*
 import com.example.rsestok.models.VideoModel
+import com.example.rsestok.ui.search.SearchAdapterSendVideo
+import com.example.rsestok.ui.single_chat.SingleChatAdapter
+import com.example.rsestok.ui.single_chat.message_recycling_view.views.AppViewFactory
 import com.example.rsestok.utilits.APP_ACTIVITY
+import com.example.rsestok.utilits.APP_NAV_CONTROLLER
+import com.example.rsestok.utilits.app_listeners.AppChildEventListener
+import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.downloadAndSetImage
 import com.example.rsestok.utilits.media.PlayerStateCallback
 import com.example.rsestok.utilits.media.PlayerViewAdapter
 import com.example.rsestok.utilits.media.PlayerViewAdapter.Companion.loadVideo
-import com.google.android.exoplayer2.Player
-
-import android.view.*
-import androidx.collection.arrayMapOf
-import androidx.navigation.NavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rsestok.*
-import com.example.rsestok.databinding.*
-import com.example.rsestok.ui.search.SearchAdapterSendVideo
-import com.example.rsestok.ui.single_chat.SingleChatAdapter
-import com.example.rsestok.utilits.APP_NAV_CONTROLLER
-import com.example.rsestok.utilits.app_listeners.AppChildEventListener
-import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.showToast
+import com.google.android.exoplayer2.Player
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DatabaseReference
+import android.view.MotionEvent
+import com.example.rsestok.ui.coments_chat.ComentsChatAdapter
+import com.example.rsestok.ui.coments_chat.coments_recycling_view.views.ComentViewFactory
 
 
 class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
@@ -92,6 +97,13 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         holder.btnComment.setOnClickListener{
             showComents(position)
         }
+        val refComents = REF_DATABASE_ROOT.child(NODE_COMENTS).child(listVideos[position].id)
+        val comentsCountListener = AppValueEventListener {
+            val comentCount = it.children.map{it.getMessageModel()}.size
+            holder.textCountComenst.text = comentCount.toString()
+        }
+        refComents.addValueEventListener(comentsCountListener)
+        mapListeners[refComents] = comentsCountListener
         if(listVideos[position].likes.containsValue(CURRENT_UID)){
             holder.flagBtnLike = true
         }
@@ -160,24 +172,44 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         bottomSheetDialogComents.setContentView(dialogBindingComents.root)
         bottomSheetDialogComents.window?.attributes?.windowAnimations = R.style.DialogAnimation
         bottomSheetDialogComents.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        bottomSheetDialogComents.setCancelable(true)
+        dialogBindingComents.toolbar.setNavigationIcon(R.drawable.toolbar_back)
+        dialogBindingComents.toolbar.setNavigationOnClickListener(View.OnClickListener { // Your code
+            bottomSheetDialogComents.dismiss()
+        })
 
         dialogBindingComents.sendBtn.setOnClickListener {
-            sendComent(listVideos[position], dialogBindingComents.chatInputComent.text.toString())
-            dialogBindingComents.chatInputComent.setText("")
+            if(dialogBindingComents.chatInputComent.text.length != 0){
+                sendComent(listVideos[position], dialogBindingComents.chatInputComent.text.toString())
+                dialogBindingComents.chatInputComent.setText("")
+            }
         }
 
+        val rcView = dialogBindingComents.rcView
+        val linearLayoutManager = LinearLayoutManager(bottomSheetDialogComents.context)
+        rcView.setHasFixedSize(true)
+        rcView.isNestedScrollingEnabled = true
+        rcView.layoutManager = linearLayoutManager
+        val adapterComents = ComentsChatAdapter()
+        rcView.adapter = adapterComents
 
-        val rcView = dialogBindingComents.rView
-        rcView.layoutManager = LinearLayoutManager(APP_ACTIVITY)
 
-        val comentsListener = AppChildEventListener{ val coment = it.getMessageModel() }
+
+        val comentsListener = AppChildEventListener{
+            val message = it.getMessageModel()
+            adapterComents.addItemToBottom(ComentViewFactory.getView(message)){
+                rcView.smoothScrollToPosition(adapterComents.itemCount)
+            }
+
+        }
+
         val refComents = REF_DATABASE_ROOT.child(NODE_COMENTS).child(listVideos[position].id)
         refComents.addChildEventListener(comentsListener)
-
 
         bottomSheetDialogComents.show()
 
     }
+
 
 
     private fun showDialogForYourAccount(position: Int) {

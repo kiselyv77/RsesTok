@@ -53,6 +53,7 @@
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/change_fullname.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/change_username.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/chat_item.xml" value="0.4" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/coment_item_text.xml" value="0.6" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/custom_controller.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/custom_controller_messages.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/dialog_download.xml" value="0.25416666666666665" />
@@ -64,7 +65,7 @@
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_register.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_search.xml" value="0.19375" />
-        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_single_chat.xml" value="0.4" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_single_chat.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_user_profile.xml" value="0.4" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_video_pager.xml" value="0.176" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/instagram_timeline_item_recycler.xml" value="0.176" />
@@ -76,6 +77,7 @@
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/massage_item_video.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/menu_video.xml" value="0.2" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/menu_video_for_not_your_account.xml" value="0.4" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/message_item_coment.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/message_item_file.xml" value="0.2328125" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/message_item_image.xml" value="0.2328125" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/message_item_text.xml" value="0.25416666666666665" />

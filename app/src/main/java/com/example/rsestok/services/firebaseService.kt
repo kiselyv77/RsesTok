@@ -460,9 +460,11 @@ fun removeLikeVideo(videoModel: VideoModel, uid: String){
 fun sendComent(videoModel:VideoModel, textComent:String){
     val refComents = "$NODE_COMENTS/${videoModel.id}"
     val mapComent = hashMapOf<String, Any>()
+    mapComent[CHILD_ID] = getMessageKey(videoModel.id)
     mapComent[CHILD_FROM] = CURRENT_UID
     mapComent[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
     mapComent[CHILD_TEXT] = textComent
+    mapComent[CHILD_TYPE] = TYPE_COMENT_TEXT
     val mapComents = hashMapOf<String, Any>()
     mapComents[getMessageKey(videoModel.id)] = mapComent
     REF_DATABASE_ROOT.child(refComents).updateChildren(mapComents)

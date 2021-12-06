@@ -1,29 +1,32 @@
-package com.example.rsestok.ui.single_chat
+package com.example.rsestok.ui.coments_chat
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rsestok.ui.coments_chat.coments_recycling_view.view_holders.ComentHolder
+import com.example.rsestok.ui.coments_chat.coments_recycling_view.view_holders.ComentHolderFactory
+import com.example.rsestok.ui.coments_chat.coments_recycling_view.views.ComentView
 import com.example.rsestok.ui.single_chat.message_recycling_view.view_holders.AppHolderFactory
 import com.example.rsestok.ui.single_chat.message_recycling_view.view_holders.MessageHolder
 import com.example.rsestok.ui.single_chat.message_recycling_view.views.MessageView
 import com.example.rsestok.utilits.showToast
 
 
-class SingleChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ComentsChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var listMessageCache = mutableListOf<MessageView>()
+    private var listMessageCache = mutableListOf<ComentView>()
 
 
-    private val holderList = mutableListOf<MessageHolder>()
+    private val holderList = mutableListOf<ComentHolder>()
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-       return AppHolderFactory.getHolder(parent, viewType)
+       return ComentHolderFactory.getHolder(parent, viewType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        (holder as MessageHolder).drawMessage(listMessageCache[position], listMessageCache)
+        (holder as ComentHolder).drawMessage(listMessageCache[position], listMessageCache)
     }
 
 
@@ -33,7 +36,7 @@ class SingleChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return listMessageCache[position].getTypeView()
     }
 
-    fun addItemToBottom(item:MessageView, onSuccess: ()-> Unit){
+    fun addItemToBottom(item:ComentView, onSuccess: ()-> Unit){
         if(!listMessageCache.contains(item)){
             listMessageCache.add(item)
             notifyItemInserted(listMessageCache.size)
@@ -41,7 +44,7 @@ class SingleChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         onSuccess()
     }
 
-    fun addItemToTop(item:MessageView, onSuccess: ()-> Unit){
+    fun addItemToTop(item:ComentView, onSuccess: ()-> Unit){
         if(!listMessageCache.contains(item)){
             listMessageCache.add(item)
             listMessageCache.sortBy{ it.timeStamp }
@@ -52,13 +55,13 @@ class SingleChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-        (holder as MessageHolder).onAttach(listMessageCache[holder.adapterPosition])
+        (holder as ComentHolder).onAttach(listMessageCache[holder.adapterPosition])
         holderList.add(holder)
         super.onViewAttachedToWindow(holder)
     }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-        (holder as MessageHolder).onDetach()
+        (holder as ComentHolder).onDetach()
         holderList.remove(holder)
         super.onViewDetachedFromWindow(holder)
     }
