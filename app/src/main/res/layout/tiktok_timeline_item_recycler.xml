@@ -81,9 +81,9 @@
                 android:id="@+id/bottons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_vertical|end"
+                android:layout_gravity="bottom|end"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="64dp"
                 android:orientation="vertical">
 
                 <ImageButton
@@ -153,19 +153,19 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:minWidth="32dp"
-                    android:minHeight="32dp"
-                    tools:src="@drawable/profile"
+                    android:maxWidth="50dp"
+                    android:maxHeight="50dp"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="2dp"
                     app:civ_circle_background_color="@color/gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/profile" />
 
             </LinearLayout>
 

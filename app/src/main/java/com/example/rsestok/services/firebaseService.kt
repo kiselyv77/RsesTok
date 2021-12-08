@@ -3,10 +3,7 @@ package com.example.rsestok
 
 import android.graphics.Bitmap
 import android.net.Uri
-import com.example.rsestok.models.ChatModel
-import com.example.rsestok.models.MessageModel
-import com.example.rsestok.models.UserModel
-import com.example.rsestok.models.VideoModel
+import com.example.rsestok.models.*
 import com.example.rsestok.utilits.*
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.google.android.gms.tasks.Continuation
@@ -30,7 +27,7 @@ const val NODE_USERNAMES = "usernames"
 const val NODE_MESSAGES = "messages"
 const val NODE_CHAT_LIST = "chat_list"
 const val NODE_VIDEOS = "videos"
-const val  CHILD_THUMBNAIL = "thumbnailUrl"
+const val CHILD_THUMBNAIL = "thumbnailUrl"
 
 //USER CHILD
 const val CHILD_ID = "id"
@@ -43,6 +40,7 @@ const val CHILD_USER_ID = "userId"
 const val CHILD_TITLE = "title"
 const val CHILD_VIDEO_URL = "videoURI"
 const val CHILD_USER_VIDEO_ID = "userVideoId"
+const val CHILD_VIDEO_ID = "video_id"
 
 
 //MESSAGE CHILD
@@ -454,19 +452,33 @@ fun removeLikeVideo(videoModel: VideoModel, uid: String){
     val refLikes = "$NODE_USERS/${videoModel.userId}/${NIDE_LIKES}"
 
     REF_DATABASE_ROOT.child("$refLikes/${videoModel.id}$CURRENT_UID").removeValue()
+}
+
+fun likeComent(id:String){
+    val refComents = "$NODE_COMENTS/$NIDE_LIKES/$id"
+    val mapLikes = hashMapOf<String, Any>()
+    mapLikes["$refComents/${CURRENT_UID}"] = CURRENT_UID
+    REF_DATABASE_ROOT.updateChildren(mapLikes)
+
+
+}
+fun remuveLikeComent(id:String){
+    val refComents = "$NODE_COMENTS/$NIDE_LIKES/$id"
+    REF_DATABASE_ROOT.child("$refComents/$CURRENT_UID").removeValue()
 
 }
 
 fun sendComent(videoModel:VideoModel, textComent:String){
     val refComents = "$NODE_COMENTS/${videoModel.id}"
     val mapComent = hashMapOf<String, Any>()
-    mapComent[CHILD_ID] = getMessageKey(videoModel.id)
+    val key = getMessageKey(videoModel.id)
+    mapComent[CHILD_ID] = key
     mapComent[CHILD_FROM] = CURRENT_UID
     mapComent[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
     mapComent[CHILD_TEXT] = textComent
     mapComent[CHILD_TYPE] = TYPE_COMENT_TEXT
     val mapComents = hashMapOf<String, Any>()
-    mapComents[getMessageKey(videoModel.id)] = mapComent
+    mapComents[key] = mapComent
     REF_DATABASE_ROOT.child(refComents).updateChildren(mapComents)
 
 }
@@ -489,6 +501,8 @@ fun DataSnapshot.getUserModel() = this.getValue(UserModel::class.java) ?: UserMo
 fun DataSnapshot.getChatModel() = this.getValue(ChatModel::class.java) ?: ChatModel()
 
 fun DataSnapshot.getMessageModel() = this.getValue(MessageModel::class.java)?: MessageModel()
+
+fun DataSnapshot.getComentModel() = this.getValue(ComentModel::class.java)?: ComentModel()
 
 fun DataSnapshot.getVideoModel() = this.getValue(VideoModel::class.java)?: VideoModel()
 

@@ -3,13 +3,11 @@ package com.example.rsestok.ui.coments_chat.coments_recycling_view.views
 
 interface ComentView {
     val id:String
+    val text:String
+    val type:String
     val from: String
     val timeStamp:String
-    val fileUrl:String
-    val text:String
-    val userVideoId:String
-    val type:String
-    var videoURI:String
+    val videoId:String
 
     companion object{
         val COMENT_IMAGE:Int

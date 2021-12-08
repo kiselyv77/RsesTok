@@ -11,19 +11,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_user_massage"
+        android:minWidth="60dp"
+        android:padding="3dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/chat_user_message"
-            android:layout_width="match_parent"
+            android:id="@+id/textCountLikesUser"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:padding="@dimen/appPading"
-            android:textColor="@color/black"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chat_user_message" />
+
+        <ImageButton
+            android:id="@+id/btnLikeUser"
+            android:layout_width="17dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ripple_effect_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/textCountLikesUser"
+            app:layout_constraintEnd_toStartOf="@+id/textCountLikesUser"
+            app:layout_constraintTop_toTopOf="@+id/textCountLikesUser"
+            app:srcCompat="@drawable/ic_like_coments"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/chat_user_message"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:singleLine="false"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Здарова" />
 
@@ -36,8 +61,8 @@
             android:textColor="@color/black"
             android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chat_user_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chat_user_message"
             tools:text="21:00" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -45,12 +70,36 @@
         android:id="@+id/block_received_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_receiving_message"
+        android:background="@drawable/bg_user_massage"
+        android:minWidth="60dp"
+        android:padding="3dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <ImageButton
+            android:id="@+id/btnLikeReceived"
+            android:layout_width="17dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ripple_effect_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/textCountLikesReceived"
+            app:layout_constraintEnd_toStartOf="@+id/textCountLikesReceived"
+            app:layout_constraintTop_toBottomOf="@+id/chat_received_message"
+            app:srcCompat="@drawable/ic_like_coments"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textCountLikesReceived"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chat_received_message" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image_coment"
@@ -65,11 +114,10 @@
         <TextView
             android:id="@+id/chat_received_message"
             android:layout_width="wrap_content"
-            android:layout_height="27dp"
+            android:layout_height="0dp"
             android:gravity="start"
-            android:padding="@dimen/appPading"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image_coment"
             app:layout_constraintStart_toEndOf="@+id/profile_image_coment"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Здарова" />
@@ -83,11 +131,10 @@
             android:textColor="@color/black"
             android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chat_received_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image_coment"
             tools:text="21:00" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

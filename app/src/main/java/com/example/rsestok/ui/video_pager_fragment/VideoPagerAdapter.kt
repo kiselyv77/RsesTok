@@ -65,7 +65,8 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         var description = item.desc
 
         var btnSend = item.btnSend
-        var imageProfile = item.profileImage }
+        var imageProfile = item.profileImage
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder  {
         val chatItem = TiktokTimelineItemRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -157,7 +158,7 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
             holder.imageProfile.downloadAndSetImage(it.getUserModel().profilePhotoUri)
 
         }
-        refPhoto.addValueEventListener(photoListener)
+        refPhoto.addListenerForSingleValueEvent(photoListener)
         mapListeners[refPhoto] = photoListener
 
 
@@ -196,8 +197,8 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
 
         val comentsListener = AppChildEventListener{
-            val message = it.getMessageModel()
-            adapterComents.addItemToBottom(ComentViewFactory.getView(message)){
+            val coment = it.getComentModel()
+            adapterComents.addItemToBottom(ComentViewFactory.getView(coment)){
                 rcView.smoothScrollToPosition(adapterComents.itemCount)
             }
 
