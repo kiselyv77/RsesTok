@@ -125,6 +125,7 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
     override fun onDetach() {
         refComents.removeEventListener(likeListenerUser)
         refComents.removeEventListener(likeListenerReceived)
+
     }
 
 
