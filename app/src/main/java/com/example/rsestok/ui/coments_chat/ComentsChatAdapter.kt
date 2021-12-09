@@ -61,15 +61,15 @@ class ComentsChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-        (holder as ComentHolder).onDetach()
+        (holder as ComentHolder).onDetach(listMessageCache[holder.adapterPosition])
         holderList.remove(holder)
         super.onViewDetachedFromWindow(holder)
     }
 
     fun destroy(){
-        holderList.forEach {
-            it.onDetach()
-        }
+//        holderList.forEach {
+//            it.onDetach()
+//        }
     }
     fun clear(){
         val n = listMessageCache.size

@@ -1,5 +1,6 @@
 package com.example.rsestok.ui.coments_chat.coments_recycling_view.view_holders
 
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.*
@@ -7,11 +8,8 @@ import com.example.rsestok.databinding.ComentItemTextBinding
 import com.example.rsestok.databinding.MessageItemTextBinding
 import com.example.rsestok.ui.coments_chat.coments_recycling_view.views.ComentView
 import com.example.rsestok.ui.single_chat.message_recycling_view.views.MessageView
-import com.example.rsestok.utilits.APP_ACTIVITY
+import com.example.rsestok.utilits.*
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
-import com.example.rsestok.utilits.asTime
-import com.example.rsestok.utilits.downloadAndSetImage
-import com.example.rsestok.utilits.showToast
 import com.google.firebase.database.DatabaseReference
 
 class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHolder(itemMessage.root), ComentHolder {
@@ -29,7 +27,6 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
     private val textCountLikesUser = itemMessage.textCountLikesUser
     private val textCountLikesReceived = itemMessage.textCountLikesReceived
 
-    private var flagBtnLike = false
     private lateinit var likeListenerUser:AppValueEventListener
     private lateinit var likeListenerReceived:AppValueEventListener
     private lateinit var refComents:DatabaseReference
@@ -43,29 +40,27 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
             blockReceivedMessage.visibility = View.GONE
             chatUserMessage.text = view.text
             chatUserMessageTime.text = view.timeStamp.asTime()
-            likeListenerUser = AppValueEventListener {
+            val likeListenerUser = AppValueEventListener {
                 val listLikes = it.children.map{it.getStringList()}
                 if(listLikes.contains(CURRENT_UID)){
                     btnLikeUser.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_on_coments))
                     textCountLikesUser.setTextColor(APP_ACTIVITY.getColor(R.color.color_like))
-                    flagBtnLike = true
-
                 }
                 else{
-                    flagBtnLike = false
                     btnLikeUser.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_coments))
                     textCountLikesUser.setTextColor(APP_ACTIVITY.getColor(R.color.white))
 
                 }
                 btnLikeUser.setOnClickListener {
-                    if(flagBtnLike){
+                    if(listLikes.contains(CURRENT_UID)){
                         remuveLikeComent(view.id)
-                        flagBtnLike = false
+                        btnLikeUser.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_coments))
+                        textCountLikesUser.setTextColor(APP_ACTIVITY.getColor(R.color.white))
                     }
                     else{
                         likeComent(view.id)
-                        flagBtnLike = true
-
+                        btnLikeUser.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_on_coments))
+                        textCountLikesUser.setTextColor(APP_ACTIVITY.getColor(R.color.color_like))
                     }
                 }
                 textCountLikesUser.text = listLikes.size.toString()
@@ -77,41 +72,47 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
             blockUserMessage.visibility = View.GONE
             chatReceivedMessage.text = view.text
             chatReceivedMessageTime.text = view.timeStamp.asTime()
-            likeListenerReceived = AppValueEventListener {
+            val likeListenerReceived = AppValueEventListener {
                 val listLikes = it.children.map{it.getStringList()}
                 if(listLikes.contains(CURRENT_UID)){
                     btnLikeReceived.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_on_coments))
                     textCountLikesReceived.setTextColor(APP_ACTIVITY.getColor(R.color.color_like))
-                    flagBtnLike = true
-
                 }
                 else{
-                    flagBtnLike = false
                     btnLikeReceived.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_coments))
                     textCountLikesReceived.setTextColor(APP_ACTIVITY.getColor(R.color.white))
-
                 }
                 btnLikeReceived.setOnClickListener {
-                    if(flagBtnLike){
+                    if(listLikes.contains(CURRENT_UID)){
                         remuveLikeComent(view.id)
-                        flagBtnLike = false
+                        btnLikeReceived.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_coments))
+                        textCountLikesReceived.setTextColor(APP_ACTIVITY.getColor(R.color.white))
+
                     }
                     else{
                         likeComent(view.id)
-                        flagBtnLike = true
-
+                        btnLikeReceived.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_on_coments))
+                        textCountLikesReceived.setTextColor(APP_ACTIVITY.getColor(R.color.color_like))
                     }
                 }
                 textCountLikesReceived.text = listLikes.size.toString()
+
             }
-
-
             refComents.addValueEventListener(likeListenerReceived)
+            profileImageReceived.setOnClickListener {
+                    val bundle: Bundle = Bundle()
+                    bundle.putString("uid", view.from)
+                    if(view.from == CURRENT_UID){
+                        APP_NAV_CONTROLLER.navigate(R.id.navigation_profile, bundle)
 
+                    }
+                    else{
+                        APP_NAV_CONTROLLER.navigate(R.id.navigation_user_profile, bundle)
+                    }
+            }
             val refPhoto = REF_DATABASE_ROOT.child(NODE_USERS).child(view.from)
             val photoListener = AppValueEventListener {
                 profileImageReceived.downloadAndSetImage(it.getUserModel().profilePhotoUri)
-
             }
             refPhoto.addListenerForSingleValueEvent(photoListener)
         }
@@ -122,9 +123,14 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
 
     }
 
-    override fun onDetach() {
-        refComents.removeEventListener(likeListenerUser)
-        refComents.removeEventListener(likeListenerReceived)
+    override fun onDetach(view: ComentView) {
+//        if (view.from == CURRENT_UID){
+//            refComents.removeEventListener(likeListenerUser)
+//        }
+//        else{
+//            refComents.removeEventListener(likeListenerReceived)
+//        }
+
 
     }
 

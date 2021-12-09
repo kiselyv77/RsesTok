@@ -58,6 +58,7 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
         val btnLike = item.btnLike
         val textCountLikes = item.textCountLikes
+        var comentCount:Int = 0
 
         var flagBtnLike = false
 
@@ -95,16 +96,17 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
             }
 
         }
-        holder.btnComment.setOnClickListener{
-            showComents(position)
-        }
         val refComents = REF_DATABASE_ROOT.child(NODE_COMENTS).child(listVideos[position].id)
         val comentsCountListener = AppValueEventListener {
-            val comentCount = it.children.map{it.getMessageModel()}.size
-            holder.textCountComenst.text = comentCount.toString()
+            holder.comentCount = it.children.map{it.getMessageModel()}.size
+            holder.textCountComenst.text = holder.comentCount.toString()
         }
         refComents.addValueEventListener(comentsCountListener)
         mapListeners[refComents] = comentsCountListener
+        holder.btnComment.setOnClickListener{
+            showComents(position)
+        }
+
         if(listVideos[position].likes.containsValue(CURRENT_UID)){
             holder.flagBtnLike = true
         }
@@ -169,12 +171,25 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
     private fun showComents(position: Int) {
         val bottomSheetDialogComents = BottomSheetDialog(APP_ACTIVITY)
+        APP_NAV_CONTROLLER.addOnDestinationChangedListener(NavController.OnDestinationChangedListener{controller, destination, arguments ->
+            if (destination.id != R.id.navigation_video_pager && destination.id != R.id.navigation_home) {
+                bottomSheetDialogComents.dismiss()
+            }
+        })
         val dialogBindingComents = LayoutComentsBinding.inflate(LayoutInflater.from(bottomSheetDialogComents.context), null ,false)
         bottomSheetDialogComents.setContentView(dialogBindingComents.root)
         bottomSheetDialogComents.window?.attributes?.windowAnimations = R.style.DialogAnimation
         bottomSheetDialogComents.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        bottomSheetDialogComents.setCancelable(true)
-        dialogBindingComents.toolbar.setNavigationIcon(R.drawable.toolbar_back)
+        val refComents_for_toolbar = REF_DATABASE_ROOT.child(NODE_COMENTS).child(listVideos[position].id)
+        val comentsCountListener = AppValueEventListener {
+            val comentCount = it.children.map{it.getMessageModel()}.size
+            dialogBindingComents.toolbar.title = "${comentCount} кометариев"
+            dialogBindingComents.toolbar.titleMarginStart = 10
+        }
+        refComents_for_toolbar.addValueEventListener(comentsCountListener)
+        mapListeners[refComents_for_toolbar] = comentsCountListener
+
+            dialogBindingComents.toolbar.setNavigationIcon(R.drawable.ic_close)
         dialogBindingComents.toolbar.setNavigationOnClickListener(View.OnClickListener { // Your code
             bottomSheetDialogComents.dismiss()
         })

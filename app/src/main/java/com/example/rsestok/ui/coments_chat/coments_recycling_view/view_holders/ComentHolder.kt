@@ -7,5 +7,5 @@ import com.example.rsestok.ui.single_chat.message_recycling_view.views.MessageVi
 interface ComentHolder {
     fun drawMessage(view: ComentView, messageList: MutableList<ComentView> = arrayListOf())
     fun onAttach(view:ComentView)
-    fun onDetach()
+    fun onDetach(view:ComentView)
 }

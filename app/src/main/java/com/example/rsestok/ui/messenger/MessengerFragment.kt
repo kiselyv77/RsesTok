@@ -54,7 +54,10 @@ class MessengerFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initRecyclerView() }
+        initRecyclerView()
+    }
+
+
 
 
     fun initRecyclerView(){
@@ -69,7 +72,6 @@ class MessengerFragment : Fragment() {
                     TYPE_CHAT -> showChat(model)
                 }
             }
-
 
         }
 
