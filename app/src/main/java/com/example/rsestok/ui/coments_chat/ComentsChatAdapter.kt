@@ -25,6 +25,7 @@ class ComentsChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
 
         (holder as ComentHolder).drawMessage(listMessageCache[position], listMessageCache)
     }

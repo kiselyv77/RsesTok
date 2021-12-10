@@ -104,7 +104,6 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
                     bundle.putString("uid", view.from)
                     if(view.from == CURRENT_UID){
                         APP_NAV_CONTROLLER.navigate(R.id.navigation_profile, bundle)
-
                     }
                     else{
                         APP_NAV_CONTROLLER.navigate(R.id.navigation_user_profile, bundle)

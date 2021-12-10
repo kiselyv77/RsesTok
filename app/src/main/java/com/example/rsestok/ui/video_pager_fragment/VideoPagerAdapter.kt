@@ -207,6 +207,7 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         rcView.isNestedScrollingEnabled = true
         rcView.layoutManager = linearLayoutManager
         val adapterComents = ComentsChatAdapter()
+        adapterComents.setHasStableIds(true)
         rcView.adapter = adapterComents
 
 
