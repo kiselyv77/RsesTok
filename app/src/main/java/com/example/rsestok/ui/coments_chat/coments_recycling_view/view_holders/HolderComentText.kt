@@ -40,7 +40,7 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
             blockReceivedMessage.visibility = View.GONE
             chatUserMessage.text = view.text
             chatUserMessageTime.text = view.timeStamp.asTime()
-            val likeListenerUser = AppValueEventListener {
+            likeListenerUser = AppValueEventListener {
                 val listLikes = it.children.map{it.getStringList()}
                 if(listLikes.contains(CURRENT_UID)){
                     btnLikeUser.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_on_coments))
@@ -72,7 +72,7 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
             blockUserMessage.visibility = View.GONE
             chatReceivedMessage.text = view.text
             chatReceivedMessageTime.text = view.timeStamp.asTime()
-            val likeListenerReceived = AppValueEventListener {
+            likeListenerReceived = AppValueEventListener {
                 val listLikes = it.children.map{it.getStringList()}
                 if(listLikes.contains(CURRENT_UID)){
                     btnLikeReceived.setImageDrawable(APP_ACTIVITY.getDrawable(R.drawable.ic_like_on_coments))
@@ -123,15 +123,12 @@ class HolderComentText(itemMessage: ComentItemTextBinding) : RecyclerView.ViewHo
     }
 
     override fun onDetach(view: ComentView) {
-//        if (view.from == CURRENT_UID){
-//            refComents.removeEventListener(likeListenerUser)
-//        }
-//        else{
-//            refComents.removeEventListener(likeListenerReceived)
-//        }
-
-
+        if (view.from == CURRENT_UID){
+            refComents.removeEventListener(likeListenerUser)
+        }
+        else{
+            refComents.removeEventListener(likeListenerReceived)
+        }
     }
-
 
 }

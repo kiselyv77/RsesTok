@@ -185,6 +185,7 @@ class SingleChatFragment() : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mRefMessages.removeEventListener(mMessageListener)
     }
 
 

@@ -36,6 +36,7 @@ class UserProfileFragment : Fragment() {
     lateinit var subscriptionsListener: AppValueEventListener
 
     private lateinit var  refVideos : DatabaseReference
+    private var refsubscriptions = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_SUBSCRIPTIONS)
 
     private var flagBtn = false
 
@@ -133,7 +134,7 @@ class UserProfileFragment : Fragment() {
             }
 
         }
-        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_SUBSCRIPTIONS).addValueEventListener(subscriptionsListener)
+        refsubscriptions.addValueEventListener(subscriptionsListener)
 
 
         binding.btnMessage.setOnClickListener {
@@ -173,7 +174,8 @@ class UserProfileFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_SUBSCRIPTIONS).removeEventListener(subscriptionsListener)
+        refsubscriptions.removeEventListener(subscriptionsListener)
+        refVideos.removeEventListener(listenerVideos)
     }
 
     override fun onStart() {

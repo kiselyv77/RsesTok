@@ -77,6 +77,7 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
 
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
+        holder.setIsRecyclable(false)
         if (holder.playerView.player?.playbackState == null){
             holder.thumbnail.downloadAndSetImage(listVideos[position].thumbnailUrl, R.drawable.back_white)
             holder.playerView.loadVideo(listVideos[position].videoURI, this, holder.progressBar, holder.thumbnail, position, false)
