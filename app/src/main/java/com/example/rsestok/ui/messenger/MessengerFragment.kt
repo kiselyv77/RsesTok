@@ -2,13 +2,11 @@ package com.example.rsestok.ui.messenger
 
 import MessengerAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.collection.arrayMapOf
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rsestok.*
 import com.example.rsestok.databinding.FragmentMessengerBinding
 import com.example.rsestok.models.ChatModel
-import com.example.rsestok.models.UserModel
 import com.example.rsestok.utilits.*
 import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.google.firebase.database.DatabaseReference
@@ -94,11 +91,9 @@ class MessengerFragment : Fragment() {
                 else if (tempList[0].type == TYPE_MESSAGE_VOICE){newModel.lastMessage = "Голосовое сообщение"}
                 else if (tempList[0].type == TYPE_MESSAGE_VIDEO){newModel.lastMessage = "Видео"}
                 else{ newModel.lastMessage = tempList[0].text }
-                adapter.addItemToBottom(newModel)
+                adapter.addItem(newModel)
                 listChatsInit.add(newModel)
-
             }
-
             refMessages.child(model.id).limitToLast(1).addValueEventListener(request2)
             mapListeners[refMessages] = request2
 
@@ -119,7 +114,7 @@ class MessengerFragment : Fragment() {
             adapter.updateListItems(arrayListOf<ChatModel>())
             val filteredListChats = listChatsInit.filter {it.fullname.lowercase().contains(newText.toString().lowercase())}
             filteredListChats.forEach {
-                adapter.addItemToBottom(it)
+                //adapter.addItem(it)
             }
         })
     }

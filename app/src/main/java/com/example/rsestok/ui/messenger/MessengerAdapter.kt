@@ -1,5 +1,6 @@
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -13,6 +14,7 @@ import com.example.rsestok.utilits.*
 class MessengerAdapter: RecyclerView.Adapter<MessengerAdapter.ChatHolder>() {
 
     var listChats = mutableListOf<ChatModel>()
+    var listIdChats = mutableListOf<String>()
     class ChatHolder(chatItem:ItemChatBinding): RecyclerView.ViewHolder(chatItem.root){
         val name = chatItem.fullnameTextContacts
         val lastMessage = chatItem.lastMessage
@@ -66,11 +68,21 @@ class MessengerAdapter: RecyclerView.Adapter<MessengerAdapter.ChatHolder>() {
         notifyDataSetChanged()
     }
 
-    fun addItemToBottom(item: ChatModel){
-        if(!listChats.contains(item)){
-            listChats.add(item)
-            notifyItemInserted(listChats.size)
+    fun addItem(item: ChatModel){
+        if(listIdChats.contains(item.id)){
+            notifyItemChanged(listIdChats.indexOf(item.id))
+            Log.d("messenger_adapter_debug", "replace")
+        }
+        else{
+            if(!listChats.contains(item)){
+                listChats.add(item)
+                listIdChats.add(item.id)
+                notifyItemInserted(listChats.size)
+                Log.d("messenger_adapter_debug", "addToBottom")
+            }
         }
     }
+
+
 
 }

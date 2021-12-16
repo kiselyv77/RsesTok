@@ -1,12 +1,14 @@
 package com.example.rsestok.utilits.media
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.rsestok.R
 import com.example.rsestok.utilits.APP_ACTIVITY
+import com.example.rsestok.utilits.showToast
 import com.github.rahatarmanahmed.cpv.CircularProgressView
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.MediaItem
@@ -51,11 +53,9 @@ class PlayerViewAdapter {
                 playersMap.get(index)?.playWhenReady = true
                 currentPlayingVideo = Pair(index, playersMap.get(index)!!)
             }
-
         }
 
         fun playPause(animPlay:ImageView, animPause:ImageView, position:Int){
-
             if(playersMap.get(position)?.playWhenReady == false && playersMap.get(position)?.playbackState != Player.STATE_BUFFERING){
                 playIndexThenPausePreviousPlayer(position)
                 animPlay.visibility = View.VISIBLE
@@ -86,6 +86,10 @@ class PlayerViewAdapter {
         ) {
 
             progressbar.visibility = View.VISIBLE
+            Log.d("debag_pager", "loadVideo()")
+            //if(item_index != null) releaseRecycledPlayers(item_index-1)
+
+
 
             val player = SimpleExoPlayer.Builder(context).build()
 
@@ -118,9 +122,10 @@ class PlayerViewAdapter {
 
             this.player!!.addListener(object : Player.EventListener {
 
+
                 override fun onPlayerError(error: ExoPlaybackException) {
                     super.onPlayerError(error)
-                    this@loadVideo.context.toast("Oops! Error occurred while playing media.")
+                    this@loadVideo.context.toast(error.message.toString())
                 }
 
                 override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
@@ -152,5 +157,6 @@ class PlayerViewAdapter {
                 }
             })
         }
+
     }
 }

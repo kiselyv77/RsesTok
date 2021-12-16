@@ -18,6 +18,7 @@
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable-v24/ic_stop_blue.xml" value="0.1" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable-v24/ic_voice.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable-v24/ripple_effect.xml" value="0.2703125" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable-v24/toolbar_back_white.xml" value="0.2611111111111111" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable/add.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable/add2.xml" value="0.20989583333333334" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable/back_white.xml" value="0.225" />
@@ -46,6 +47,7 @@
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable/ripple_effect_transparent.xml" value="0.2212962962962963" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable/search.xml" value="0.2703125" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable/search_black.xml" value="0.2703125" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/drawable/toolbar_back.xml" value="0.2611111111111111" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout-v28/instagram_timeline_item_recycler.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/activity_register.xml" value="0.1875" />
@@ -64,11 +66,11 @@
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_home.xml" value="0.19375" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_login.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_messenger.xml" value="0.19375" />
-        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_register.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_search.xml" value="0.19375" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_single_chat.xml" value="0.264" />
-        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_user_profile.xml" value="0.4" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_user_profile.xml" value="0.2" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/fragment_video_pager.xml" value="0.176" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/instagram_timeline_item_recycler.xml" value="0.176" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/item_chat.xml" value="0.8800000000000001" />
@@ -85,7 +87,7 @@
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/message_item_text.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/message_item_video.xml" value="0.4" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/message_item_voice.xml" value="0.264" />
-        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/tiktok_timeline_item_recycler.xml" value="0.6" />
+        <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/layout/tiktok_timeline_item_recycler.xml" value="0.264" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/menu/buttom_nav_menu_register.xml" value="0.1875" />
         <entry key="..\:/Users/Mi/AndroidStudioProjects/RsesTok/app/src/main/res/menu/search_bar.xml" value="0.25416666666666665" />

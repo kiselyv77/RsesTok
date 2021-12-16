@@ -1,6 +1,7 @@
 package com.example.rsestok.ui.video_pager_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.AbsListView
@@ -34,7 +35,6 @@ import com.example.rsestok.ui.coments_chat.coments_recycling_view.views.ComentVi
 class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
     PlayerStateCallback {
 
-
     val listVideos = mutableListOf<VideoModel>()
 
 
@@ -67,9 +67,12 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
         var btnSend = item.btnSend
         var imageProfile = item.profileImage
+
+        var btnClose = item.btnClose
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder  {
+
         val chatItem = TiktokTimelineItemRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = VideoHolder(chatItem)
         return holder
@@ -78,13 +81,16 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
         holder.setIsRecyclable(false)
-        if (holder.playerView.player?.playbackState == null){
+        if (holder.playerView.player?.playbackState != Player.STATE_READY){
             holder.thumbnail.downloadAndSetImage(listVideos[position].thumbnailUrl, R.drawable.back_white)
             holder.playerView.loadVideo(listVideos[position].videoURI, this, holder.progressBar, holder.thumbnail, position, false)
         }
         holder.title.text = listVideos[position].title
         holder.description.text = listVideos[position].description
         holder.textCountLikes.text = listVideos[position].likes.size.toString()
+        holder.btnClose.setOnClickListener{
+            APP_NAV_CONTROLLER.popBackStack()
+        }
         holder.itemView.setOnClickListener {
             PlayerViewAdapter.playPause(holder.animPlay, holder.animPause, position)
         }
@@ -104,9 +110,21 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         }
         refComents.addValueEventListener(comentsCountListener)
         mapListeners[refComents] = comentsCountListener
-        holder.btnComment.setOnClickListener{
-            showComents(position)
-        }
+
+
+
+        APP_NAV_CONTROLLER.addOnDestinationChangedListener(NavController.OnDestinationChangedListener{controller, destination, arguments ->
+            if (destination.id == R.id.navigation_video_pager || destination.id == R.id.navigation_single_chat) {
+                holder.btnClose.visibility = View.VISIBLE
+                holder.btnClose.setOnClickListener{
+                    APP_NAV_CONTROLLER.popBackStack()
+                }
+
+            }
+        })
+
+
+
 
         if(listVideos[position].likes.containsValue(CURRENT_UID)){
             holder.flagBtnLike = true
@@ -328,13 +346,26 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
     }
 
     override fun onFinishedPlaying(player: Player) {
-
     }
 
     override fun onViewAttachedToWindow(holder: VideoHolder) {
         super.onViewAttachedToWindow(holder)
         PlayerViewAdapter.playIndexThenPausePreviousPlayer(holder.layoutPosition)
+        Log.d("debag_pager", "attach:playIndexThenPausePreviousPlayer():${holder.layoutPosition}")
+
     }
+
+    override fun onViewDetachedFromWindow(holder: VideoHolder) {
+        super.onViewDetachedFromWindow(holder)
+        PlayerViewAdapter.releaseRecycledPlayers(holder.layoutPosition)
+        Log.d("debag_pager", "detach:releaseRecycledPlayers():${holder.layoutPosition}")
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        Log.d("debag_pager", "onDetachedFromRecyclerView")
+    }
+
 
     fun remuveEventListeners(){
         mapListeners.forEach {
