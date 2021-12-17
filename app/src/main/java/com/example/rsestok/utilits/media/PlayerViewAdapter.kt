@@ -87,7 +87,7 @@ class PlayerViewAdapter {
 
             progressbar.visibility = View.VISIBLE
             Log.d("debag_pager", "loadVideo()")
-            //if(item_index != null) releaseRecycledPlayers(item_index-1)
+            if(item_index != null) releaseRecycledPlayers(item_index)
 
 
 
@@ -125,7 +125,8 @@ class PlayerViewAdapter {
 
                 override fun onPlayerError(error: ExoPlaybackException) {
                     super.onPlayerError(error)
-                    this@loadVideo.context.toast(error.message.toString())
+                    this@loadVideo.context.toast("Ошибка воспроизведения")
+                    Log.d("debag_pager", "${error.message}")
                 }
 
                 override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {

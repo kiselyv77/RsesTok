@@ -111,6 +111,10 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         refComents.addValueEventListener(comentsCountListener)
         mapListeners[refComents] = comentsCountListener
 
+        holder.btnComment.setOnClickListener{
+            showComents(position)
+        }
+
 
 
         APP_NAV_CONTROLLER.addOnDestinationChangedListener(NavController.OnDestinationChangedListener{controller, destination, arguments ->
@@ -357,8 +361,7 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
     override fun onViewDetachedFromWindow(holder: VideoHolder) {
         super.onViewDetachedFromWindow(holder)
-        PlayerViewAdapter.releaseRecycledPlayers(holder.layoutPosition)
-        Log.d("debag_pager", "detach:releaseRecycledPlayers():${holder.layoutPosition}")
+        //Log.d("debag_pager", "detach:releaseRecycledPlayers():${holder.layoutPosition}")
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
