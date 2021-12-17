@@ -5,27 +5,27 @@
 <hr align="center" color="#fff" size="1" width="860px" />
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Search.jpg" width="30%" height="30%" align="left" />
-<big>Главный экран</big>
+<big>Поиск</big>
 <br>
-<p>Это главный экран моего приложения.</p>
+<p>Здесь можно найти других пользователей.</p>
 <hr align="center" color="#fff" size="1" width="860px" />
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Add.jpg" width="30%" height="30%" align="left" />
-<big>Главный экран</big>
+<big>Добавить</big>
 <br>
-<p>Это главный экран моего приложения.</p>
+<p>Здесь можно добавить видео.</p>
 <hr align="center" color="#fff" size="1" width="860px" />
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Messenger.jpg" width="30%" height="30%" align="left" />
-<big>Главный экран</big>
+<big>Сообщения</big>
 <br>
-<p>Это главный экран моего приложения.</p>
+<p>Здесь можно общатся с друзьями.</p>
 <hr align="center" color="#fff" size="1" width="860px" />
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Profile.jpg" width="30%" height="30%" align="left" />
-<big>Главный экран</big>
+<big>Профиль</big>
 <br>
-<p>Это главный экран моего приложения.</p>
+<p>Ваш профиль.</p>
 <hr align="center" color="#fff" size="1" width="860px" />
 
 
