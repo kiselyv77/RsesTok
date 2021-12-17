@@ -1,12 +1,24 @@
-
-    <div class="wrap"> <!--Создаем дополнительную обертку-родительский элемент -->
-            <div class="bblock">Строим</div>
-            <div class="bblock">горизонтальный</div>
-            <div class="bblock">ряд</div>
-            <div class="bblock">из дивов</div>
-</div>
-  
-
+<p float="left">
+<img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%"/>
+<div id="header"><h3>Это главный экран моего приложения</h3></div>
+</p>
+<hr align="center" color="#fff" size="1" width="860px" />
+<p float="left">
+<img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Search.jpg" width="30%" height="30%"/>
+</p>
+<hr align="center" color="#fff" size="1" width="860px" />
+<p float="left">
+<img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Add.jpg" width="30%" height="30%"/>
+</p>
+<hr align="center" color="#fff" size="1" width="860px" />
+<p float="left">
+<img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Messenger.jpg" width="30%" height="30%"/>
+</p>
+<hr align="center" color="#fff" size="1" width="860px" />
+<p float="left">
+<img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Profile.jpg" width="30%" height="30%"/>
+</p>
+<hr align="center" color="#fff" size="1" width="860px" />
 
     
     
