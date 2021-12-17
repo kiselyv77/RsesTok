@@ -50,11 +50,19 @@ class MainActivity : AppCompatActivity() {
                 val attrib = APP_ACTIVITY.window.attributes
                 attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
 
+                APP_ACTIVITY.window.decorView.systemUiVisibility =
+                    APP_ACTIVITY.window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+
             } else {
                 APP_ACTIVITY.setColorNavView(Color.WHITE, Color.BLACK)
                 APP_ACTIVITY.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 val attrib = APP_ACTIVITY.window.attributes
                 attrib.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+
+                APP_ACTIVITY.window.decorView.systemUiVisibility =
+                    APP_ACTIVITY.window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+
             }
         })
     }

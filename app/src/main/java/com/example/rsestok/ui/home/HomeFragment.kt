@@ -3,10 +3,6 @@ package com.example.rsestok.ui.home
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -25,6 +21,10 @@ import com.example.rsestok.utilits.app_listeners.AppValueEventListener
 import com.example.rsestok.utilits.media.PlayerViewAdapter
 import com.example.rsestok.utilits.showToast
 import com.google.firebase.database.DatabaseReference
+import android.R
+import android.content.Context
+import android.view.*
+
 
 class HomeFragment : Fragment() {
 
@@ -54,7 +54,6 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
 
 
         return root
