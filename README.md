@@ -1,7 +1,5 @@
 <p float="left">
-    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%"/>
-
 </p>
 
 <hr align="center" color="#fff" size="1" width="860px" />
