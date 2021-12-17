@@ -1,4 +1,4 @@
-<p float="left">
+<p float="right">
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%"/>
 <p float="right">ngjjdksjvjnksjnv</p>
 </p>
