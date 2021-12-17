@@ -1,15 +1,21 @@
-<html>
- <head>
-  <meta charset="utf-8">
-  <title>Фотографии</title>
- </head>
- <body>
-  <p>
+
+<div>
     <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="50%" height="50%"/> 
-    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Search.jpg" width="50%" height="50%"/>
-    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Add.jpg" width="50%" height="50%"/>
-    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Messenger.jpg" width="50%" height="50%"/>
-    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Profile.jpg" width="50%" height="50%"/>
-  </p>
- </body>
-</html>
+</div>
+<div>
+    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="50%" height="50%"/>
+</div>
+<div>
+    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="50%" height="50%"/>
+</div>
+<div>
+    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="50%" height="50%"/>
+</div>
+<div>
+    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="50%" height="50%"/>
+</div>
+<div>
+    <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="50%" height="50%"/>
+</div>
+    
+    
