@@ -1,6 +1,6 @@
 <p float="left">
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%"/>
-<div float="left" id="header"><h3>Это главный экран моего приложения</h3></div>
+<div float="left" id="header"><h6>Это главный экран моего приложения</h6></div>
 </p>
 <hr align="center" color="#fff" size="1" width="860px" />
 <p float="right">
