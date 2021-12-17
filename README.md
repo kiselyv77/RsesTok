@@ -1,5 +1,6 @@
 <p float="left">
-<img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%"/>
+<img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%" />
+<div align="top">Текст слева</div>
 </p>
 
 <hr align="center" color="#fff" size="1" width="860px" />
@@ -28,7 +29,6 @@
 
 <hr align="center" color="#fff" size="1" width="860px" />
 
-<p><img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Profile.jpg" width="30%" height="30%" align="top" />Красивая пчёлка</p>
 
 
     
