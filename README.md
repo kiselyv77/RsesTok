@@ -1,10 +1,11 @@
 <p><h1>Учебный проэкт предстовляющий из себя сервис для загрузки и просмотра коротких видео.Это андроид приложение которое в качестве серверной части использует firebase.</h1></p>
-<p><h3>Технологии и библиотеки используемые проэкте:</h3></p>
-<p><h5>Firebase.</h5></p>
-<p><h5>RecyclerView.</h5></p>
-<p><h5>ViewPager2.</h5></p>
-<p><h5>ExoPlayer2.</h5></p>
-<p><h5>FFmpeg.</h5></p>
+<p><h3>Основные технологии и библиотеки используемые проэкте:</h3></p>
+
+- Firebase.
+- RecyclerView.
+- ViewPager2.
+- ExoPlayer2.
+- FFmpeg.
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%" align="left" />
 <big><h2>Главный экран</h2></big>
