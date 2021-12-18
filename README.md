@@ -7,6 +7,7 @@
 - ViewPager2.
 - ExoPlayer2.
 - FFmpeg.
+- ViewBinding.
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%" align="left" />
 <big><h2>Главный экран</h2></big>
