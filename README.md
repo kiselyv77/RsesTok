@@ -32,7 +32,7 @@
 <hr align="center" color="#fff" size="1" width="860px" />
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Profile.jpg" width="30%" height="30%" align="left" />
-<big></h2>Профиль<h2></big>
+<big><h2>Профиль</h2></big>
 <br>
 <p>Здесь предоставленна информация о вашем профиле. Показан список всех видеороликов. Здесь можно поменять фото, изменить данные и выйти из профиля</p>
 <hr align="center" color="#fff" size="1" width="860px" />
