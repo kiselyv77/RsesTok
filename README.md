@@ -1,13 +1,13 @@
-<p><h1>Учебный проэкт предстовляющий из себя сервис для загрузки и просмотра коротких видео.Это андроид приложение которое в качестве серверной части использует firebase.</h1></p>
+<p><h2>Учебный проэкт предстовляющий из себя сервис для загрузки и просмотра коротких видео.Это андроид приложение которое в качестве серверной части использует firebase.</h2></p>
 В приложение построенно на Single Activity Architecture.Навигация в приложении происходит за счет BottomNavigationView.Используется ViewBinding.
 <p><h3>Основные технологии и библиотеки используемые проэкте:</h3></p>
 
+- ViewBinding.
+- ExoPlayer2.
+- FFmpeg.
 - Firebase.
 - RecyclerView.
 - ViewPager2.
-- ExoPlayer2.
-- FFmpeg.
-- ViewBinding.
 
 <img src="https://github.com/kiselyv77/RsesTok/blob/master/screenshots/Home.jpg" width="30%" height="30%" align="left" />
 <big><h2>Главный экран</h2></big>
