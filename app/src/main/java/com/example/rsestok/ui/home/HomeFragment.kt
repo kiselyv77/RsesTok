@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference
 import android.R
 import android.content.Context
 import android.view.*
+import com.example.rsestok.utilits.media.VideoPagerAdapter2
 
 
 class HomeFragment : Fragment() {

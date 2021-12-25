@@ -17,7 +17,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.rsestok.databinding.ActivityMainBinding
 import com.example.rsestok.utilits.APP_ACTIVITY
 import com.example.rsestok.utilits.APP_NAV_CONTROLLER
+import com.example.rsestok.utilits.SIMPLE_CACHE
 import com.example.rsestok.utilits.UserStatus
+import com.google.android.exoplayer2.database.DatabaseProvider
+import com.google.android.exoplayer2.database.ExoDatabaseProvider
+import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +44,9 @@ class MainActivity : AppCompatActivity() {
         val navViewRegister: BottomNavigationView = binding.navViewRegister
 
         APP_NAV_CONTROLLER = findNavController(R.id.nav_host_fragment_activity_main)
+        val leastRecentlyUsedCacheEvictor = LeastRecentlyUsedCacheEvictor(90L * 1024L * 1024L)
+        val databaseProvider: DatabaseProvider = ExoDatabaseProvider(this)
+        SIMPLE_CACHE = SimpleCache(cacheDir, leastRecentlyUsedCacheEvictor, databaseProvider)
 
         navView.setupWithNavController(APP_NAV_CONTROLLER)
         navViewRegister.setupWithNavController(APP_NAV_CONTROLLER)

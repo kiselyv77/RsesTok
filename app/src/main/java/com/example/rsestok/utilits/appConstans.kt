@@ -2,9 +2,11 @@ package com.example.rsestok.utilits
 
 import androidx.navigation.NavController
 import com.example.rsestok.MainActivity
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
 
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var APP_NAV_CONTROLLER: NavController
+lateinit var SIMPLE_CACHE: SimpleCache
 
 const val TYPE_MESSAGE_TEXT = "type_text"
 const val TYPE_MESSAGE_VOICE = "type_voice"

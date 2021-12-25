@@ -30,6 +30,9 @@ import com.google.firebase.database.DatabaseReference
 import android.view.MotionEvent
 import com.example.rsestok.ui.coments_chat.ComentsChatAdapter
 import com.example.rsestok.ui.coments_chat.coments_recycling_view.views.ComentViewFactory
+import com.google.android.exoplayer2.database.DatabaseProvider
+import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
 
 
 class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
@@ -41,7 +44,6 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
     val mapListeners = arrayMapOf<DatabaseReference, AppValueEventListener>()
 
     private lateinit var likeListener: AppValueEventListener
-
 
 
     inner class VideoHolder(item: TiktokTimelineItemRecyclerBinding): RecyclerView.ViewHolder(item.root){
@@ -85,6 +87,8 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
             holder.thumbnail.downloadAndSetImage(listVideos[position].thumbnailUrl, R.drawable.back_white)
             holder.playerView.loadVideo(listVideos[position].videoURI, this, holder.progressBar, holder.thumbnail, position, false)
         }
+
+
         holder.title.text = listVideos[position].title
         holder.description.text = listVideos[position].description
         holder.textCountLikes.text = listVideos[position].likes.size.toString()

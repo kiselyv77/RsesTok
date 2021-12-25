@@ -8,13 +8,15 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.example.rsestok.R
 import com.example.rsestok.utilits.APP_ACTIVITY
+import com.example.rsestok.utilits.SIMPLE_CACHE
 import com.example.rsestok.utilits.showToast
 import com.github.rahatarmanahmed.cpv.CircularProgressView
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 
 
 fun Context.toast(text: String){
@@ -90,8 +92,14 @@ class PlayerViewAdapter {
             if(item_index != null) releaseRecycledPlayers(item_index)
 
 
-
             val player = SimpleExoPlayer.Builder(context).build()
+            val cacheDataSourceFactory = CacheDataSourceFactory(
+                SIMPLE_CACHE,
+                DefaultHttpDataSourceFactory(
+                    Util.getUserAgent(context,
+                        "exo"))
+            )
+
 
             player.playWhenReady = autoPlay
             player.repeatMode = Player.REPEAT_MODE_ALL
@@ -102,8 +110,8 @@ class PlayerViewAdapter {
             // Provide url to load the video from here
 
             val mediaItem = MediaItem.fromUri(url)
-            player.setMediaItem(mediaItem)
-            player.prepare()
+            val mediaSource = ProgressiveMediaSource.Factory(cacheDataSourceFactory).createMediaSource(mediaItem)
+            player.prepare(mediaSource, true, true)
 
 
 
