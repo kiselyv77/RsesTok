@@ -6,7 +6,7 @@
     android:id="@+id/tik_tock_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@color/black"
     android:visibility="visible">
 
 
@@ -14,7 +14,7 @@
         android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"
+        android:background="@color/black"
         android:orientation="vertical"
         android:weightSum="100">
 
@@ -34,6 +34,7 @@
                 android:id="@+id/item_video_exoplayer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
