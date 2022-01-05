@@ -44,9 +44,13 @@ class MainActivity : AppCompatActivity() {
         val navViewRegister: BottomNavigationView = binding.navViewRegister
 
         APP_NAV_CONTROLLER = findNavController(R.id.nav_host_fragment_activity_main)
-        val leastRecentlyUsedCacheEvictor = LeastRecentlyUsedCacheEvictor(90L * 1024L * 1024L)
-        val databaseProvider: DatabaseProvider = ExoDatabaseProvider(this)
-        SIMPLE_CACHE = SimpleCache(cacheDir, leastRecentlyUsedCacheEvictor, databaseProvider)
+
+
+
+
+
+
+
 
         navView.setupWithNavController(APP_NAV_CONTROLLER)
         navViewRegister.setupWithNavController(APP_NAV_CONTROLLER)

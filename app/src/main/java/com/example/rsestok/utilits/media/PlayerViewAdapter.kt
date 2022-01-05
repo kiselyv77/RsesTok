@@ -6,6 +6,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.UiThread
 import com.example.rsestok.R
 import com.example.rsestok.utilits.APP_ACTIVITY
 import com.example.rsestok.utilits.SIMPLE_CACHE
@@ -17,6 +18,10 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 fun Context.toast(text: String){
@@ -93,12 +98,20 @@ class PlayerViewAdapter {
 
 
             val player = SimpleExoPlayer.Builder(context).build()
-            val cacheDataSourceFactory = CacheDataSourceFactory(
-                SIMPLE_CACHE,
-                DefaultHttpDataSourceFactory(
-                    Util.getUserAgent(context,
-                        "exo"))
-            )
+
+            val cacheDataSourceFactory = VideoCache.getInstance()?.let {
+                CacheDataSourceFactory(it, DefaultHttpDataSourceFactory(Util.getUserAgent(context, "exo")))
+            }
+
+            val mediaItem = MediaItem.fromUri(url)
+
+            val mediaSource = cacheDataSourceFactory?.let { ProgressiveMediaSource.Factory(it).createMediaSource(mediaItem) }
+
+            if (mediaSource != null) {
+                player.prepare(mediaSource, true, true)
+            }
+
+
 
 
             player.playWhenReady = autoPlay
@@ -108,12 +121,6 @@ class PlayerViewAdapter {
             // We'll show the controller, change to true if want controllers as pause and start
             this.useController = false
             // Provide url to load the video from here
-
-            val mediaItem = MediaItem.fromUri(url)
-            val mediaSource = ProgressiveMediaSource.Factory(cacheDataSourceFactory).createMediaSource(mediaItem)
-            player.prepare(mediaSource, true, true)
-
-
 
 
             this.player = player
