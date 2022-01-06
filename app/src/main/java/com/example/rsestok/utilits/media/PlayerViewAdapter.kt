@@ -13,15 +13,16 @@ import com.example.rsestok.utilits.SIMPLE_CACHE
 import com.example.rsestok.utilits.showToast
 import com.github.rahatarmanahmed.cpv.CircularProgressView
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
-import com.google.android.exoplayer2.util.Util
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+
+
+
 
 
 fun Context.toast(text: String){
@@ -83,7 +84,7 @@ class PlayerViewAdapter {
         *  progressbar for show when start buffering stream
         * thumbnail for show before video start
         * */
-        fun PlayerView.loadVideo(
+         fun PlayerView.loadVideo(
             url: String,
             callback: PlayerStateCallback,
             progressbar: CircularProgressView,
@@ -96,20 +97,30 @@ class PlayerViewAdapter {
             Log.d("debag_pager", "loadVideo()")
             if(item_index != null) releaseRecycledPlayers(item_index)
 
+            val httpDataSourceFactory = DefaultHttpDataSource.Factory()
+                .setAllowCrossProtocolRedirects(true)
 
-            val player = SimpleExoPlayer.Builder(context).build()
 
-            val cacheDataSourceFactory = VideoCache.getInstance()?.let {
-                CacheDataSourceFactory(it, DefaultHttpDataSourceFactory(Util.getUserAgent(context, "exo")))
-            }
+
+
+//            val cacheDataSourceFactory = CacheDataSource.Factory()
+//                .setCache(VideoCache.getInstance()!!)
+//                .setUpstreamDataSourceFactory(httpDataSourceFactory)
+
+
+
+            val player = SimpleExoPlayer.Builder(APP_ACTIVITY).build()
+                //.setMediaSourceFactory(DefaultMediaSourceFactory(cacheDataSourceFactory)).build()
+
 
             val mediaItem = MediaItem.fromUri(url)
 
-            val mediaSource = cacheDataSourceFactory?.let { ProgressiveMediaSource.Factory(it).createMediaSource(mediaItem) }
+            //val mediaSource = ProgressiveMediaSource.Factory(cacheDataSourceFactory).createMediaSource(mediaItem)
+            //player.setMediaSource(mediaSource, true)
 
-            if (mediaSource != null) {
-                player.prepare(mediaSource, true, true)
-            }
+            player.setMediaItem(mediaItem)
+
+            player.prepare()
 
 
 

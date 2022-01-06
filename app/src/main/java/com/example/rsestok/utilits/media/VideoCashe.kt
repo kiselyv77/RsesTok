@@ -7,6 +7,7 @@ import com.google.android.exoplayer2.upstream.cache.NoOpCacheEvictor
 
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import java.io.File
+import kotlin.concurrent.thread
 
 
 object VideoCache {

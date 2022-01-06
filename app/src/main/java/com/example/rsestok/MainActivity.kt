@@ -47,11 +47,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
         navView.setupWithNavController(APP_NAV_CONTROLLER)
         navViewRegister.setupWithNavController(APP_NAV_CONTROLLER)
         APP_NAV_CONTROLLER.addOnDestinationChangedListener(

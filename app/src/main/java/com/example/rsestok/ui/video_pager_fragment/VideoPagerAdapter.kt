@@ -1,6 +1,7 @@
 package com.example.rsestok.ui.video_pager_fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.view.View.OnTouchListener
@@ -33,6 +34,8 @@ import com.example.rsestok.ui.coments_chat.coments_recycling_view.views.ComentVi
 import com.google.android.exoplayer2.database.DatabaseProvider
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.thread
 
 
 class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.Adapter<VideoPagerAdapter.VideoHolder>(),
@@ -82,7 +85,7 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
 
 
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
-        holder.setIsRecyclable(true)
+        holder.setIsRecyclable(false)
         if (holder.playerView.player?.playbackState != Player.STATE_READY){
             holder.thumbnail.downloadAndSetImage(listVideos[position].thumbnailUrl, R.drawable.back_black)
             holder.playerView.loadVideo(listVideos[position].videoURI, this, holder.progressBar, holder.thumbnail, position, false)
@@ -118,7 +121,6 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         holder.btnComment.setOnClickListener{
             showComents(position)
         }
-
 
 
         APP_NAV_CONTROLLER.addOnDestinationChangedListener(NavController.OnDestinationChangedListener{controller, destination, arguments ->
@@ -360,7 +362,6 @@ class VideoPagerAdapter(var listSubscribers: ArrayList<String>) : RecyclerView.A
         super.onViewAttachedToWindow(holder)
         PlayerViewAdapter.playIndexThenPausePreviousPlayer(holder.layoutPosition)
         Log.d("debag_pager", "attach:playIndexThenPausePreviousPlayer():${holder.layoutPosition}")
-
     }
 
     override fun onViewDetachedFromWindow(holder: VideoHolder) {
